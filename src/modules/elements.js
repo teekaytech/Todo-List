@@ -1,11 +1,28 @@
-const CreateElement = (name, text = '', id = '', classname = '') => {
-  const element = document.createElement(name);
+const Elements = (() => {
+  const tag = (name, text = '', id = '', classname = '') => {
+    const elem = document.createElement(name);
+    elem.innerText = text;
+    elem.className += classname;
+    elem.setAttribute('id', id);
+    return elem;
+  };
 
-  element.innerText = text;
-  element.className += classname;
-  element.setAttribute('id', id);
+  const formTag = (name, text = '', id = '', classname = '', type = '', holder = '') => {
+    const formElement = tag(name, text, id, classname);
+    formElement.setAttribute('type', type);
+    formElement.setAttribute('placeholder', holder);
+    return formElement;
+  };
 
-  return element;
-};
+  const radioTag = (name, text = '', id = '', classname = '', type = '', rname = '', value = '') => {
+    const radioElement = tag(name, text, id, classname);
+    radioElement.setAttribute('type', type);
+    radioElement.setAttribute('name', rname);
+    radioElement.setAttribute('value', value);
+    return radioElement;
+  };
 
-export default CreateElement;
+  return { tag, formTag, radioTag };
+})();
+
+export default Elements;

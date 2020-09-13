@@ -1,7 +1,13 @@
-import Operation from './modules/operations';
-import render from './modules/dom';
+import Dom from './modules/dom';
 
-const project = Operation.createProject(1, 'General');
 
-console.log(project.name);
+const {
+  render, todoForm, container, newTodo,
+} = Dom;
+
 render();
+
+
+newTodo.addEventListener('click', () => {
+  container.appendChild(todoForm());
+});
