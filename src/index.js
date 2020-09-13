@@ -1,3 +1,7 @@
+import Operation from './modules/operations';
+import render from './modules/dom';
 
-// eslint-disable-next-line no-alert
-alert('Hello world');
+const project = Operation.createProject(1, 'General');
+
+console.log(project.name);
+render();
