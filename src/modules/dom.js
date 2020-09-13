@@ -4,8 +4,8 @@ const { tag, formTag, radioTag } = Elements;
 const container = document.getElementById('content');
 const title = tag('h1', 'Todo List App', 'header', 'header');
 const projects = tag('section', '', 'projects', 'projects');
-const todos = tag('section', 'Todos', 'todos', 'todos');
-const newTodo = tag('button', 'Add Todo', 'new-todo', 'new-todo');
+const todos = tag('section', '', 'todos', 'todos');
+const newTodo = tag('button', '+ New Todo', 'new-todo', 'new-todo');
 const close = tag('button', 'Close', 'close', 'close');
 
 const Dom = (() => {
@@ -63,8 +63,11 @@ const Dom = (() => {
     const nextContainer = tag('div', '', 'sub-container', 'sub-container');
 
     projects.appendChild(tag('p', 'All Projects', 'p-header', 'p-header'));
+    projects.appendChild(tag('div', 'projects here', 'p-list', 'p-list'));
     projects.appendChild(projectForm());
 
+    todos.appendChild(tag('p', 'All Todos', 't-header', 't-header'));
+    todos.appendChild(tag('div', 'todos here', 't-list', 't-list'));
     todos.appendChild(newTodo);
     todos.appendChild(todoForm());
 

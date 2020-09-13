@@ -2,6 +2,25 @@ $bg: rgb(27, 14, 39);
 $main: #fff;
 $primary: rgb(0, 0, 255);
 
+@mixin mini-headers {
+  font-weight: bolder;
+  font-size: x-large;
+  padding-bottom: 0.5em;
+}
+
+@mixin add-buttons {
+  color: $main;
+  font-weight: bolder;
+  font-size: x-large;
+  background-color: $primary;
+  padding: 0.05em 0.4em;
+  border-radius: 0.25em;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -34,47 +53,46 @@ body {
   .projects {
     text-align: left;
     color: black;
-    width: 30%;
+    width: 27%;
     min-height: 80vh;
     padding: 0.5em;
     background-color: $main;
 
     .p-header {
-      font-weight: bolder;
-      font-size: x-large;
-      padding-bottom: 0.5em;
+      @include mini-headers();
     }
 
     .new-p {
-      text-align: center;
-      padding: 0.7em 0.3em;
+      display: flex;
+      padding: 0.7em;
+      justify-content: center;
       background-color: $bg;
-      border-radius: 0.2em;
+      border-radius: 0.4em;
 
       input[type="text"] {
-        padding: 0.3em;
+        padding: 0.4em 0.3em;
         margin-right: 1em;
       }
 
       .create-p {
-        color: $main;
-        font-weight: bolder;
-        font-size: x-large;
-        background-color: $primary;
-        padding: 0.05em 0.4em;
-
-        &:hover {
-          cursor: pointer;
-        }
+        @include add-buttons();
       }
     }
   }
 
   .todos {
     color: $main;
-    width: 70%;
+    width: 73%;
     margin: 2em;
     text-align: left;
+
+    .t-header {
+      @include mini-headers();
+    }
+
+    .new-todo {
+      @include add-buttons();
+    }
   }
 }
 
