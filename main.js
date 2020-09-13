@@ -94,7 +94,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_operations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/operations */ \"./src/modules/operations.js\");\n/* harmony import */ var _modules_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/dom */ \"./src/modules/dom.js\");\n\n\n\nconst project = _modules_operations__WEBPACK_IMPORTED_MODULE_0__[\"default\"].createProject(1, 'General');\n\nconsole.log(project.name);\nObject(_modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"])();\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/dom */ \"./src/modules/dom.js\");\n\n\n\nconst {\n  render, todoForm, container, newTodo,\n} = _modules_dom__WEBPACK_IMPORTED_MODULE_0__[\"default\"];\n\nrender();\n\n\nnewTodo.addEventListener('click', () => {\n  container.appendChild(todoForm());\n});\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
@@ -106,7 +106,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mod
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./elements */ \"./src/modules/elements.js\");\n\n\nconst container = document.getElementById('content');\nconst projects = Object(_elements__WEBPACK_IMPORTED_MODULE_0__[\"default\"])('section', 'Projects', 'projects', 'projects');\nconst todos = Object(_elements__WEBPACK_IMPORTED_MODULE_0__[\"default\"])('section', 'Todos', 'todos', 'todos');\n\nconst render = () => {\n  container.appendChild(projects);\n  container.appendChild(todos);\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (render);\n\n\n//# sourceURL=webpack:///./src/modules/dom.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./elements */ \"./src/modules/elements.js\");\n\n\nconst { tag, formTag, radioTag } = _elements__WEBPACK_IMPORTED_MODULE_0__[\"default\"];\nconst container = document.getElementById('content');\nconst title = tag('h1', 'Todo List App', 'header', 'header');\nconst projects = tag('section', '', 'projects', 'projects');\nconst todos = tag('section', 'Todos', 'todos', 'todos');\nconst newTodo = tag('button', 'Add Todo', 'new-todo', 'new-todo');\n\nconst Dom = (() => {\n  const projectForm = () => {\n    const wrapper = tag('div', '', 'new-p', 'new-p');\n    const add = tag('button', 'Add Project', 'create-p', 'create-p');\n    const name = formTag(\n      'input',\n      '',\n      'project-name',\n      'project-name',\n      'text',\n      'Project Name here',\n    );\n\n    wrapper.appendChild(name);\n    wrapper.appendChild(add);\n    return wrapper;\n  };\n\n  const prioritySection = () => {\n    const labels = ['Low', 'Medium', 'High'];\n    const pContainer = tag('div');\n    for (let i = 0; i < labels.length; i += 1) {\n      const label = tag('label', labels[i]);\n      label.setAttribute('for', labels[i]);\n      const radio = radioTag('input', '', labels[i], 'priority', 'radio', 'priority', labels[i]);\n      pContainer.appendChild(radio);\n      pContainer.appendChild(label);\n    }\n    return pContainer;\n  };\n\n  const todoForm = () => {\n    const wrapper = tag('div', '', 'new-t', 'new-t');\n\n    const create = tag('button', 'Add Todo', 'create-t', 'create-t');\n    const title = formTag('input', '', 't-title', 't-title', 'text', 'title here');\n    const desc = formTag('textarea', '', 't-desc', 't-desc', '', 'description');\n    const dueDate = formTag('input', '', 't-date', 't-date', 'datetime-local', '');\n\n    wrapper.appendChild(title);\n    wrapper.appendChild(desc);\n    wrapper.appendChild(dueDate);\n    wrapper.appendChild(prioritySection());\n    wrapper.appendChild(create);\n\n    return wrapper;\n  };\n\n  const render = () => {\n    projects.appendChild(projectForm());\n    todos.appendChild(newTodo);\n    container.appendChild(title);\n    container.appendChild(projects);\n    container.appendChild(todos);\n  };\n\n  return {\n    render, todoForm, container, newTodo,\n  };\n})();\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Dom);\n\n\n//# sourceURL=webpack:///./src/modules/dom.js?");
 
 /***/ }),
 
@@ -118,31 +118,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ele
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nconst CreateElement = (name, text = '', id = '', classname = '') => {\n  const element = document.createElement(name);\n\n  element.innerText = text;\n  element.className += classname;\n  element.setAttribute('id', id);\n\n  return element;\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (CreateElement);\n\n//# sourceURL=webpack:///./src/modules/elements.js?");
-
-/***/ }),
-
-/***/ "./src/modules/operations.js":
-/*!***********************************!*\
-  !*** ./src/modules/operations.js ***!
-  \***********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _projects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./projects */ \"./src/modules/projects.js\");\n\n\nconst Operation = (() => {\n  const createProject = (id, name) => {\n    const project = new _projects__WEBPACK_IMPORTED_MODULE_0__[\"default\"](id, name);\n    return project;\n  };\n\n  return { createProject };\n})();\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Operation);\n\n//# sourceURL=webpack:///./src/modules/operations.js?");
-
-/***/ }),
-
-/***/ "./src/modules/projects.js":
-/*!*********************************!*\
-  !*** ./src/modules/projects.js ***!
-  \*********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nclass Project {\n  constructor(id, name) {\n    this.id = id;\n    this.name = name;\n  }\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Project);\n\n\n//# sourceURL=webpack:///./src/modules/projects.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nconst Elements = (() => {\n  const tag = (name, text = '', id = '', classname = '') => {\n    const elem = document.createElement(name);\n    elem.innerText = text;\n    elem.className += classname;\n    elem.setAttribute('id', id);\n    return elem;\n  };\n\n  const formTag = (name, text = '', id = '', classname = '', type = '', holder = '') => {\n    const formElement = tag(name, text, id, classname);\n    formElement.setAttribute('type', type);\n    formElement.setAttribute('placeholder', holder);\n    return formElement;\n  };\n\n  const radioTag = (name, text = '', id = '', classname = '', type = '', rname = '', value = '') => {\n    const radioElement = tag(name, text, id, classname);\n    radioElement.setAttribute('type', type);\n    radioElement.setAttribute('name', rname);\n    radioElement.setAttribute('value', value);\n    return radioElement;\n  };\n\n  return { tag, formTag, radioTag };\n})();\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Elements);\n\n//# sourceURL=webpack:///./src/modules/elements.js?");
 
 /***/ })
 
