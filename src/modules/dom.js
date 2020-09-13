@@ -6,6 +6,7 @@ const title = tag('h1', 'Todo List App', 'header', 'header');
 const projects = tag('section', '', 'projects', 'projects');
 const todos = tag('section', 'Todos', 'todos', 'todos');
 const newTodo = tag('button', 'Add Todo', 'new-todo', 'new-todo');
+const close = tag('button', 'Close', 'close', 'close');
 
 const Dom = (() => {
   const projectForm = () => {
@@ -39,18 +40,21 @@ const Dom = (() => {
   };
 
   const todoForm = () => {
-    const wrapper = tag('div', '', 'new-t', 'new-t');
-
+    const wrapper = tag('div', '', 'modal', 'modal');
+    const form = tag('form', '', 'new-t', 'new-t');
     const create = tag('button', 'Add Todo', 'create-t', 'create-t');
     const title = formTag('input', '', 't-title', 't-title', 'text', 'title here');
     const desc = formTag('textarea', '', 't-desc', 't-desc', '', 'description');
     const dueDate = formTag('input', '', 't-date', 't-date', 'datetime-local', '');
 
-    wrapper.appendChild(title);
-    wrapper.appendChild(desc);
-    wrapper.appendChild(dueDate);
-    wrapper.appendChild(prioritySection());
-    wrapper.appendChild(create);
+    form.appendChild(title);
+    form.appendChild(desc);
+    form.appendChild(dueDate);
+    form.appendChild(prioritySection());
+    form.appendChild(create);
+    form.appendChild(close);
+
+    wrapper.appendChild(form);
 
     return wrapper;
   };
@@ -58,13 +62,23 @@ const Dom = (() => {
   const render = () => {
     projects.appendChild(projectForm());
     todos.appendChild(newTodo);
+    todos.appendChild(todoForm());
     container.appendChild(title);
     container.appendChild(projects);
     container.appendChild(todos);
   };
 
+  const showForm = modal => {
+    modal.style.display = 'block';
+  };
+
+  const hideForm = modal => {
+    modal.style.display = 'none';
+  };
+
+
   return {
-    render, todoForm, container, newTodo,
+    render, showForm, hideForm, container, newTodo, close,
   };
 })();
 
