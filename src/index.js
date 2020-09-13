@@ -2,7 +2,7 @@ import Dom from './modules/dom';
 import './assets/styles.scss';
 
 const {
-  render, showForm, hideForm, container, newTodo, close,
+  render, showForm, hideForm, newTodo, close,
 } = Dom;
 
 render();

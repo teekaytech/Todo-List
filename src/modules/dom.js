@@ -11,7 +11,7 @@ const close = tag('button', 'Close', 'close', 'close');
 const Dom = (() => {
   const projectForm = () => {
     const wrapper = tag('div', '', 'new-p', 'new-p');
-    const add = tag('button', 'Add Project', 'create-p', 'create-p');
+    const add = tag('button', '+', 'create-p', 'create-p');
     const name = formTag(
       'input',
       '',
@@ -60,12 +60,19 @@ const Dom = (() => {
   };
 
   const render = () => {
+    const nextContainer = tag('div', '', 'sub-container', 'sub-container');
+
+    projects.appendChild(tag('p', 'All Projects', 'p-header', 'p-header'));
     projects.appendChild(projectForm());
+
     todos.appendChild(newTodo);
     todos.appendChild(todoForm());
+
+    nextContainer.appendChild(projects);
+    nextContainer.appendChild(todos);
+
     container.appendChild(title);
-    container.appendChild(projects);
-    container.appendChild(todos);
+    container.appendChild(nextContainer);
   };
 
   const showForm = modal => {
