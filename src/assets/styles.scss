@@ -1,6 +1,7 @@
 $bg: rgb(27, 14, 39);
 $main: #fff;
 $primary: rgb(0, 0, 255);
+$close: red;
 
 @mixin mini-headers {
   font-weight: bolder;
@@ -36,13 +37,12 @@ $primary: rgb(0, 0, 255);
 
 body {
   background-color: $bg;
-  text-align: center;
 
   h1 {
     color: $main;
     font-size: 3em;
     padding: 0.5em 0;
-    border-bottom: 0.2em solid $main;
+    text-align: center;
   }
 
   .sub-container {
@@ -51,8 +51,7 @@ body {
   }
 
   .projects {
-    text-align: left;
-    color: black;
+    color: $bg;
     width: 27%;
     min-height: 80vh;
     padding: 0.5em;
@@ -64,8 +63,8 @@ body {
 
     .new-p {
       display: flex;
-      padding: 0.7em;
       justify-content: center;
+      padding: 0.7em;
       background-color: $bg;
       border-radius: 0.4em;
 
@@ -84,7 +83,6 @@ body {
     color: $main;
     width: 73%;
     margin: 2em;
-    text-align: left;
 
     .t-header {
       @include mini-headers();
@@ -92,44 +90,76 @@ body {
 
     .new-todo {
       @include add-buttons();
+      margin-top: 1em;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(197, 196, 196, 0.5);
+
+      .new-t {
+        width: 50%;
+        background-color: $main;
+        color: $bg;
+        padding: 1.5em;
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        p {
+          color: $main;
+          background-color: $bg;
+          font-weight: bolder;
+          font-size: large;
+          margin-bottom: 2em;
+          padding: 0.4em 0.8em;
+        }
+
+        .t-title,
+        .t-desc,
+        .t-date,
+        div {
+          display: block;
+          width: 100%;
+          color: $bg;
+          padding: 0.5em;
+          margin: 2em 0;
+          border-bottom: 0.15em solid $bg;
+          border-radius: 0.4em;
+        }
+
+        div {
+          border-bottom: unset;
+        }
+
+        .t-title {
+          margin: 1em 0;
+        }
+
+        .create-t {
+          @include add-buttons();
+          font-weight: unset;
+          font-size: unset;
+          padding: 0.4em 0.8em;
+          border-radius: unset;
+        }
+
+        .close {
+          position: absolute;
+          right: 1.5em;
+          bottom: 1.5em;
+          padding: 0.4em 0.8em;
+          background-color: $close;
+          color: $main;
+          cursor: pointer;
+        }
+      }
     }
   }
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: auto;
-  background-color: rgba(160, 160, 160, 0.5);
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-}
-
-.new-t {
-  width: 50%;
-  text-align: center;
-  background-color: white;
-  padding: 10px;
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  border-radius: 10px;
-  transform: translate(-50%, -50%);
-}
-
-.close {
-  position: absolute;
-  right: 20px;
-  top: 5px;
-  padding: 5px 10px;
-  background-color: red;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
 }

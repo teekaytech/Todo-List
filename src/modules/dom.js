@@ -27,8 +27,8 @@ const Dom = (() => {
   };
 
   const prioritySection = () => {
-    const labels = ['Low', 'Medium', 'High'];
-    const pContainer = tag('div');
+    const labels = [' Low ', ' Medium ', ' High '];
+    const pContainer = tag('div', 'Priority: ');
     for (let i = 0; i < labels.length; i += 1) {
       const label = tag('label', labels[i]);
       label.setAttribute('for', labels[i]);
@@ -47,6 +47,7 @@ const Dom = (() => {
     const desc = formTag('textarea', '', 't-desc', 't-desc', '', 'description');
     const dueDate = formTag('input', '', 't-date', 't-date', 'datetime-local', '');
 
+    form.appendChild(tag('p', 'New Todo'));
     form.appendChild(title);
     form.appendChild(desc);
     form.appendChild(dueDate);
