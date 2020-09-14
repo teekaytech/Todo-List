@@ -2,10 +2,18 @@ import Dom from './modules/dom';
 import './assets/styles.scss';
 
 const {
-  render, showForm, hideForm, newTodo, close,
+  projects,
+  todos,
+  container,
+  render,
+  showForm,
+  hideForm,
+  newTodo,
+  closeButton,
+  newProjectButton,
 } = Dom;
 
-render();
+render(projects, todos, container);
 
 
 newTodo.addEventListener('click', (e) => {
@@ -14,8 +22,13 @@ newTodo.addEventListener('click', (e) => {
   showForm(modal);
 });
 
-close.addEventListener('click', (e) => {
+closeButton.addEventListener('click', (e) => {
   e.preventDefault();
   const modal = document.getElementById('modal');
   hideForm(modal);
+});
+
+newProjectButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  alert('Okay');
 });

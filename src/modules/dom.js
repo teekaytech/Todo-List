@@ -6,12 +6,12 @@ const title = tag('h1', 'Todo List App', 'header', 'header');
 const projects = tag('section', '', 'projects', 'projects');
 const todos = tag('section', '', 'todos', 'todos');
 const newTodo = tag('button', '+ New Todo', 'new-todo', 'new-todo');
-const close = tag('button', 'Close', 'close', 'close');
+const closeButton = tag('button', 'Close', 'close', 'close');
+const newProjectButton = tag('button', '+', 'create-p', 'create-p');
 
 const Dom = (() => {
-  const projectForm = () => {
+  const projectForm = addButton => {
     const wrapper = tag('div', '', 'new-p', 'new-p');
-    const add = tag('button', '+', 'create-p', 'create-p');
     const name = formTag(
       'input',
       '',
@@ -22,7 +22,7 @@ const Dom = (() => {
     );
 
     wrapper.appendChild(name);
-    wrapper.appendChild(add);
+    wrapper.appendChild(addButton);
     return wrapper;
   };
 
@@ -53,30 +53,30 @@ const Dom = (() => {
     form.appendChild(dueDate);
     form.appendChild(prioritySection());
     form.appendChild(create);
-    form.appendChild(close);
+    form.appendChild(closeButton);
 
     wrapper.appendChild(form);
 
     return wrapper;
   };
 
-  const render = () => {
+  const render = (proj, task, carrier) => {
     const nextContainer = tag('div', '', 'sub-container', 'sub-container');
 
-    projects.appendChild(tag('p', 'All Projects', 'p-header', 'p-header'));
-    projects.appendChild(tag('div', 'projects here', 'p-list', 'p-list'));
-    projects.appendChild(projectForm());
+    proj.appendChild(tag('p', 'All Projects', 'p-header', 'p-header'));
+    proj.appendChild(tag('div', 'projects here', 'p-list', 'p-list'));
+    proj.appendChild(projectForm(newProjectButton));
 
-    todos.appendChild(tag('p', 'All Todos', 't-header', 't-header'));
-    todos.appendChild(tag('div', 'todos here', 't-list', 't-list'));
-    todos.appendChild(newTodo);
-    todos.appendChild(todoForm());
+    task.appendChild(tag('p', 'All Todos', 't-header', 't-header'));
+    task.appendChild(tag('div', 'todos here', 't-list', 't-list'));
+    task.appendChild(newTodo);
+    task.appendChild(todoForm());
 
     nextContainer.appendChild(projects);
     nextContainer.appendChild(todos);
 
-    container.appendChild(title);
-    container.appendChild(nextContainer);
+    carrier.appendChild(title);
+    carrier.appendChild(nextContainer);
   };
 
   const showForm = modal => {
@@ -89,7 +89,15 @@ const Dom = (() => {
 
 
   return {
-    render, showForm, hideForm, container, newTodo, close,
+    projects,
+    todos,
+    render,
+    showForm,
+    hideForm,
+    container,
+    newTodo,
+    closeButton,
+    newProjectButton,
   };
 })();
 
