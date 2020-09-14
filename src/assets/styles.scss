@@ -72,6 +72,10 @@ body {
         position: relative;
         font-weight: bolder;
         font-size: 1.2em;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
 
       .delete-p {

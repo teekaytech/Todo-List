@@ -70,27 +70,23 @@ const Dom = (() => {
     return wrapper;
   };
 
-  const render = (proj, task, carrier) => {
-    proj.innerText = '';
-    task.innerText = '';
-    carrier.innerText = '';
-
+  const render = () => {
     const nextContainer = tag('div', '', 'sub-container', 'sub-container');
 
-    proj.appendChild(tag('p', 'All Projects', 'p-header', 'p-header'));
-    proj.appendChild(Logic.allProjects());
-    proj.appendChild(projectForm(newProjectButton));
+    projects.appendChild(tag('p', 'All Projects', 'p-header', 'p-header'));
+    projects.appendChild(Logic.allProjects());
+    projects.appendChild(projectForm(newProjectButton));
 
-    task.appendChild(tag('p', 'All Todos', 't-header', 't-header'));
-    task.appendChild(tag('div', 'todos here', 't-list', 't-list'));
-    task.appendChild(newTodo);
-    task.appendChild(todoForm());
+    todos.appendChild(tag('p', 'All Todos', 't-header', 't-header'));
+    todos.appendChild(tag('div', 'todos here', 't-list', 't-list'));
+    todos.appendChild(newTodo);
+    todos.appendChild(todoForm());
 
     nextContainer.appendChild(projects);
     nextContainer.appendChild(todos);
 
-    carrier.appendChild(title);
-    carrier.appendChild(nextContainer);
+    container.appendChild(title);
+    container.appendChild(nextContainer);
   };
 
   const showForm = modal => {

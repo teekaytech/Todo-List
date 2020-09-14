@@ -9,7 +9,7 @@ const Logic = (() => {
 
   const addProject = name => {
     if (validateProjectName(name)) {
-      const nextprojectId = localStorage.length + 1;
+      const nextprojectId = localStorage.length;
       const project = JSON.stringify(new Project(nextprojectId, name));
       localStorage.setItem(nextprojectId, project);
       return true;
@@ -25,7 +25,7 @@ const Logic = (() => {
       const prjt = Elements.tag(
         'p',
         `-> ${JSON.parse(localStorage.getItem(key)).name}`,
-        'p',
+        `${key}`,
         'p',
       );
 
@@ -37,7 +37,14 @@ const Logic = (() => {
   };
 
   const deleteProject = id => {
-    const check = confirm('This project and its tasks (todo) will be deleted. Are you sure?');
+    let check;
+
+    if (id === '0') {
+      check = confirm('This is the default Project. Are you sure you want to delete?');
+    } else {
+      check = confirm('This project and its tasks (todo) will be deleted. Are you sure?');
+    }
+
     if (check === true) {
       localStorage.removeItem(id);
       return true;
