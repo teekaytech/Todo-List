@@ -22,6 +22,7 @@ const Dom = (() => {
       'Project Name here',
     );
 
+    name.setAttribute('required', 'required');
     wrapper.appendChild(name);
     wrapper.appendChild(addButton);
     return wrapper;

@@ -65,16 +65,19 @@ body {
     background-color: $main;
 
     .p-list {
-      display: flex;
-      justify-content: space-between;
       padding: 1em;
 
       .p {
+        padding: 0.5em 0;
+        position: relative;
         font-weight: bolder;
         font-size: 1.2em;
       }
 
       .delete-p {
+        position: absolute;
+        right: 0;
+        top: 0;
         @include close();
       }
     }

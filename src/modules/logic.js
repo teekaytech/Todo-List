@@ -2,12 +2,11 @@ import Project from './projects';
 import Elements from './elements';
 
 const Logic = (() => {
-  const nextprojectId = localStorage.length + 1;
-
   const validateProjectName = name => (name !== '');
 
   const addProject = name => {
     if (validateProjectName(name)) {
+      const nextprojectId = localStorage.length + 1;
       const project = JSON.stringify(new Project(nextprojectId, name));
       localStorage.setItem(nextprojectId, project);
       return true;
@@ -16,15 +15,20 @@ const Logic = (() => {
   };
 
   const allProjects = () => {
-    const projectsAll = localStorage;
     const allProjectsContainer = Elements.tag('div', '', 'p-list', 'p-list');
 
-    for (let i = 1; i <= projectsAll.length; i += 1) {
-      const prjt = Elements.tag('p', `-> ${JSON.parse(projectsAll[i]).name}`, 'p', 'p');
-      const del = Elements.tag('button', 'x', 'delete-p', 'delete-p');
 
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const key = localStorage.key(i);
+      const prjt = Elements.tag(
+        'p',
+        `-> ${JSON.parse(localStorage.getItem(key)).name}`,
+        'p',
+        'p',
+      );
+
+      prjt.innerHTML += '<button class="delete-p" id="delete-p">x</button>';
       allProjectsContainer.appendChild(prjt);
-      allProjectsContainer.appendChild(del);
     }
 
     return allProjectsContainer;
