@@ -49,7 +49,7 @@ deleteProject.forEach(project => {
 const currentProjects = document.querySelectorAll('.p');
 currentProjects.forEach((project) => {
   project.addEventListener('click', () => {
-    console.log(project.id);
-    // location.reload();
+    const thisProject = Logic.getProject(project.id);
+    document.getElementById('t-header').innerText = thisProject.name;
   });
 });

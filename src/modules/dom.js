@@ -70,6 +70,14 @@ const Dom = (() => {
     return wrapper;
   };
 
+  const todoSection = (task) => {
+    task.appendChild(tag('p', 'All Todos', 't-header', 't-header'));
+    task.appendChild(tag('div', 'todos here', 't-list', 't-list'));
+    task.appendChild(newTodo);
+    task.appendChild(todoForm());
+    return task;
+  };
+
   const render = () => {
     const nextContainer = tag('div', '', 'sub-container', 'sub-container');
 
@@ -77,17 +85,13 @@ const Dom = (() => {
     projects.appendChild(Logic.allProjects());
     projects.appendChild(projectForm(newProjectButton));
 
-    todos.appendChild(tag('p', 'All Todos', 't-header', 't-header'));
-    todos.appendChild(tag('div', 'todos here', 't-list', 't-list'));
-    todos.appendChild(newTodo);
-    todos.appendChild(todoForm());
-
     nextContainer.appendChild(projects);
-    nextContainer.appendChild(todos);
+    nextContainer.appendChild(todoSection(todos));
 
     container.appendChild(title);
     container.appendChild(nextContainer);
   };
+
 
   const showForm = modal => {
     modal.style.display = 'block';
@@ -99,12 +103,11 @@ const Dom = (() => {
 
 
   return {
-    projects,
     todos,
+    todoSection,
     render,
     showForm,
     hideForm,
-    container,
     newTodo,
     closeButton,
     newProjectButton,

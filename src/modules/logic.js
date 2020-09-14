@@ -17,17 +17,13 @@ const Logic = (() => {
     return false;
   };
 
+  const getProject = (id) => JSON.parse(localStorage.getItem(id));
+
   const allProjects = () => {
     const allProjectsContainer = Elements.tag('div', '', 'p-list', 'p-list');
-
     for (let i = 0; i < localStorage.length; i += 1) {
       const key = localStorage.key(i);
-      const prjt = Elements.tag(
-        'p',
-        `-> ${JSON.parse(localStorage.getItem(key)).name}`,
-        `${key}`,
-        'p',
-      );
+      const prjt = Elements.tag('p', `> ${getProject(key).name}`, `${key}`, 'p');
 
       prjt.innerHTML += `<button class="delete-p" id="${key}">x</button>`;
       allProjectsContainer.appendChild(prjt);
@@ -52,8 +48,9 @@ const Logic = (() => {
     return false;
   };
 
-
-  return { addProject, allProjects, deleteProject };
+  return {
+    addProject, allProjects, deleteProject, getProject,
+  };
 })();
 
 export default Logic;
