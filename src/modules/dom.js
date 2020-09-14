@@ -1,4 +1,5 @@
 import Elements from './elements';
+import Logic from './logic';
 
 const { tag, formTag, radioTag } = Elements;
 const container = document.getElementById('content');
@@ -32,7 +33,15 @@ const Dom = (() => {
     for (let i = 0; i < labels.length; i += 1) {
       const label = tag('label', labels[i]);
       label.setAttribute('for', labels[i]);
-      const radio = radioTag('input', '', labels[i], 'priority', 'radio', 'priority', labels[i]);
+      const radio = radioTag(
+        'input',
+        '',
+        labels[i],
+        'priority',
+        'radio',
+        'priority',
+        labels[i],
+      );
       pContainer.appendChild(radio);
       pContainer.appendChild(label);
     }
@@ -61,10 +70,14 @@ const Dom = (() => {
   };
 
   const render = (proj, task, carrier) => {
+    proj.innerText = '';
+    task.innerText = '';
+    carrier.innerText = '';
+
     const nextContainer = tag('div', '', 'sub-container', 'sub-container');
 
     proj.appendChild(tag('p', 'All Projects', 'p-header', 'p-header'));
-    proj.appendChild(tag('div', 'projects here', 'p-list', 'p-list'));
+    proj.appendChild(Logic.allProjects());
     proj.appendChild(projectForm(newProjectButton));
 
     task.appendChild(tag('p', 'All Todos', 't-header', 't-header'));

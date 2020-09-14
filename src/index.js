@@ -1,4 +1,5 @@
 import Dom from './modules/dom';
+import createDefault from './modules/default';
 import './assets/styles.scss';
 
 const {
@@ -14,7 +15,8 @@ const {
 } = Dom;
 
 render(projects, todos, container);
-
+localStorage.clear();
+createDefault.dProject();
 
 newTodo.addEventListener('click', (e) => {
   e.preventDefault();
@@ -30,5 +32,6 @@ closeButton.addEventListener('click', (e) => {
 
 newProjectButton.addEventListener('click', (e) => {
   e.preventDefault();
-  alert('Okay');
+  // const name = document.getElementById('project-name').value;
+  render(projects, todos, container);
 });
