@@ -1,3 +1,6 @@
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-alert */
+
 import Project from './projects';
 import Elements from './elements';
 
@@ -17,7 +20,6 @@ const Logic = (() => {
   const allProjects = () => {
     const allProjectsContainer = Elements.tag('div', '', 'p-list', 'p-list');
 
-
     for (let i = 0; i < localStorage.length; i += 1) {
       const key = localStorage.key(i);
       const prjt = Elements.tag(
@@ -27,15 +29,24 @@ const Logic = (() => {
         'p',
       );
 
-      prjt.innerHTML += '<button class="delete-p" id="delete-p">x</button>';
+      prjt.innerHTML += `<button class="delete-p" id="${key}">x</button>`;
       allProjectsContainer.appendChild(prjt);
     }
 
     return allProjectsContainer;
   };
 
+  const deleteProject = id => {
+    const check = confirm('This project and its tasks (todo) will be deleted. Are you sure?');
+    if (check === true) {
+      localStorage.removeItem(id);
+      return true;
+    }
+    return false;
+  };
 
-  return { addProject, allProjects };
+
+  return { addProject, allProjects, deleteProject };
 })();
 
 export default Logic;

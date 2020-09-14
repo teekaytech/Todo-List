@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import Dom from './modules/dom';
 import createDefault from './modules/default';
 import Logic from './modules/logic';
@@ -18,11 +19,9 @@ const {
 render(projects, todos, container);
 createDefault.dProject();
 
-newTodo.addEventListener('click', (e) => {
-  e.preventDefault();
+newTodo.addEventListener('click', () => {
   const modal = document.getElementById('modal');
   showForm(modal);
-  render(projects, todos, container);
 });
 
 closeButton.addEventListener('click', (e) => {
@@ -32,9 +31,16 @@ closeButton.addEventListener('click', (e) => {
   render(projects, todos, container);
 });
 
-newProjectButton.addEventListener('click', (e) => {
-  e.preventDefault();
+newProjectButton.addEventListener('click', () => {
   const name = document.getElementById('project-name').value;
   Logic.addProject(name);
-  render(projects, todos, container);
+  location.reload();
+});
+
+const deleteProject = document.querySelectorAll('.delete-p');
+deleteProject.forEach(project => {
+  project.addEventListener('click', () => {
+    Logic.deleteProject(project.id);
+    location.reload();
+  });
 });
