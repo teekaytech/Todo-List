@@ -22,6 +22,13 @@ $close: red;
   }
 }
 
+@mixin close {
+  padding: 0.4em 0.8em;
+  background-color: $close;
+  color: $main;
+  cursor: pointer;
+}
+
 *,
 *::before,
 *::after {
@@ -56,6 +63,21 @@ body {
     min-height: 80vh;
     padding: 0.5em;
     background-color: $main;
+
+    .p-list {
+      display: flex;
+      justify-content: space-between;
+      padding: 1em;
+
+      .p {
+        font-weight: bolder;
+        font-size: 1.2em;
+      }
+
+      .delete-p {
+        @include close();
+      }
+    }
 
     .p-header {
       @include mini-headers();
@@ -154,10 +176,7 @@ body {
           position: absolute;
           right: 1.5em;
           bottom: 1.5em;
-          padding: 0.4em 0.8em;
-          background-color: $close;
-          color: $main;
-          cursor: pointer;
+          @include close();
         }
       }
     }

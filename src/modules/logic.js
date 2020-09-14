@@ -18,10 +18,15 @@ const Logic = (() => {
   const allProjects = () => {
     const projectsAll = localStorage;
     const allProjectsContainer = Elements.tag('div', '', 'p-list', 'p-list');
+
     for (let i = 1; i <= projectsAll.length; i += 1) {
-      const prjt = Elements.tag('p', `-> ${JSON.parse(projectsAll[i]).name}`);
+      const prjt = Elements.tag('p', `-> ${JSON.parse(projectsAll[i]).name}`, 'p', 'p');
+      const del = Elements.tag('button', 'x', 'delete-p', 'delete-p');
+
       allProjectsContainer.appendChild(prjt);
+      allProjectsContainer.appendChild(del);
     }
+
     return allProjectsContainer;
   };
 
