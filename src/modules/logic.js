@@ -68,9 +68,11 @@ const Logic = (() => {
     return status;
   };
 
-  const storeTodo = (catId, todo) => {
+  const storeTodo = (catId, title, desc, date, priority) => {
     const todoProject = getProject(catId);
-    todoProject.todoList.push(todo);
+    const newId = todoProject.todoList.length + 1;
+    const newTodo = new Todo(newId, title, desc, date, priority);
+    todoProject.todoList.push(newTodo);
     localStorage.setItem(catId, JSON.stringify(todoProject));
     alert('Todo added successfully.');
   };
@@ -78,11 +80,23 @@ const Logic = (() => {
   const addTodo = (title, desc, date, priorities, catId) => {
     const priority = checkPriority(priorities);
     if (checkTodo(title, desc, date) && priority) {
-      const newTodo = new Todo(title, desc, date, priority);
-      storeTodo(catId, newTodo);
+      storeTodo(catId, title, desc, date, priority);
     } else {
       alert('All fields are compulsory.');
     }
+  };
+
+  const makeIcons = (id) => {
+    const td = Elements.tag('td', '', 'todo-action', 'todo0action');
+    td.innerHTML = `
+      <span class="edit-todo-button" id="edit-todo-button" data-todo="${id}">
+        &#128221;
+      </span>
+      <span class="delete-todo-button" id="delete-todo-buttotdn" data-todo="${id}">
+        &#128686;
+      </span>
+      `;
+    return td;
   };
 
   const displayTodos = (id, todoContainer, table, form) => {
@@ -94,16 +108,10 @@ const Logic = (() => {
 
     todos.forEach((todo) => {
       const tr = Elements.tag('tr');
-      tr.appendChild(Elements.tag('td', ''));
+      tr.appendChild(Elements.tag('td', todo.id));
       tr.appendChild(Elements.tag('td', todo.title));
       tr.appendChild(Elements.tag('td', new Date(todo.dueDate).toUTCString()));
-
-      const td = Elements.tag('td', '', 'todo-action', 'todo0action');
-      td.innerHTML = `
-      <span class="edit-todo-button" id="edit-todo-button">&#128221;</span>
-      <span class="delete-todo-button" id="delete-todo-button">&#128686;</span>`;
-
-      tr.appendChild(td);
+      tr.appendChild(makeIcons(todo.id));
       table.appendChild(tr);
     });
 

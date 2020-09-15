@@ -69,3 +69,13 @@ currentProjects.forEach((project) => {
     Logic.displayTodos(project.id, todosContainer, todoTable(), todoForm());
   });
 });
+
+// const editTodoButton = document.querySelectorAll('.edit-todo-button');
+// console.log(editTodoButton);
+// editTodoButton.forEach((button) => {
+//   button.addEventListener('click', () => {
+//     // const todosContainer = document.getElementById('todos');
+//     console.log(button);
+//     // Logic.editTodo(project.id, todosContainer, todoTable(), todoForm());
+//   });
+// });
