@@ -1,7 +1,8 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-alert */
 
-import Project from './projects';
+import Project from './project';
+import Todo from './todo';
 import Elements from './elements';
 
 const Logic = (() => {
@@ -23,13 +24,13 @@ const Logic = (() => {
     const allProjectsContainer = Elements.tag('div', '', 'p-list', 'p-list');
     for (let i = 0; i < localStorage.length; i += 1) {
       const key = localStorage.key(i);
-      const prjt = Elements.tag('p', `> ${getProject(key).name}`, `${key}`, 'p');
-
-      prjt.innerHTML += `<button class="add-todo" id="${key}">+</button>`;
-      prjt.innerHTML += `<button class="delete-p" id="${key}">x</button>`;
-      allProjectsContainer.appendChild(prjt);
+      if ((typeof parseInt('key', 10)) === 'number') {
+        const prjt = Elements.tag('p', `> ${getProject(key).name}`, `${key}`, 'p');
+        prjt.innerHTML += `<button class="add-todo" id="${key}">+</button>`;
+        prjt.innerHTML += `<button class="delete-p" id="${key}">x</button>`;
+        allProjectsContainer.appendChild(prjt);
+      }
     }
-
     return allProjectsContainer;
   };
 
@@ -49,8 +50,58 @@ const Logic = (() => {
     return false;
   };
 
+  const checkTodo = (title, desc, date) => title !== ''
+  && desc !== ''
+  && date !== '';
+
+  const checkPriority = (priority) => {
+    const priorities = Array.from(priority);
+    let status = false;
+    priorities.forEach((p) => {
+      if (p.checked === true) {
+        status = p.id;
+      }
+    });
+    return status;
+  };
+
+  const storeTodo = (catId, todo) => {
+    const todoProject = getProject(todo.catId);
+    todoProject.todoList.push(todo);
+    console.log(todoProject);
+    return true;
+  };
+
+  const addTodo = (title, desc, date, priorities, catId) => {
+    const priority = checkPriority(priorities);
+    if (checkTodo(title, desc, date) && priority) {
+      const newTodo = new Todo(title, desc, date, priority);
+      storeTodo(catId, newTodo);
+    } else {
+      alert('All fields are compulsory.');
+    }
+  };
+
+  // const allTodos = () => {
+  //   for (let i = 0; i < localStorage.length; i += 1) {
+  //     const key = localStorage.key(i);
+  //     if (typeof parseInt('0', 10) === 'number') {
+  //       const prjt = Elements.tag(
+  //         'p',
+  //         `> ${getProject(key).name}`,
+  //         `${key}`,
+  //         'p',
+  //       );
+  //       prjt.innerHTML += `<button class="add-todo" id="${key}">+</button>`;
+  //       prjt.innerHTML += `<button class="delete-p" id="${key}">x</button>`;
+  //       allProjectsContainer.appendChild(prjt);
+  //     }
+  //   }
+  //   return allProjectsContainer;
+  // };
+
   return {
-    addProject, allProjects, deleteProject, getProject,
+    addProject, allProjects, deleteProject, getProject, addTodo,
   };
 })();
 

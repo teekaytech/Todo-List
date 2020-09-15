@@ -13,14 +13,27 @@ const {
   newProjectButton,
 } = Dom;
 
-render();
 createDefault.dProject();
+render();
+
+const addNewTodo = (projectId) => {
+  const addTodo = document.querySelector('.create-t');
+  addTodo.addEventListener('click', (e) => {
+    const title = document.getElementById('t-title').value;
+    const desc = document.getElementById('t-desc').value;
+    const dueDate = document.getElementById('t-date').value;
+    const priority = document.querySelectorAll('.priority');
+    Logic.addTodo(title, desc, dueDate, priority, projectId);
+    e.preventDefault();
+  });
+};
 
 const newTodo = document.querySelectorAll('.add-todo');
 newTodo.forEach((todoButton) => {
   todoButton.addEventListener('click', () => {
     const modal = document.getElementById('modal');
     showForm(modal);
+    addNewTodo(todoButton.id);
   });
 });
 
