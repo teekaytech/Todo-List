@@ -44,8 +44,7 @@ $close: red;
 
 body {
   background-color: $bg;
-
-  h1 {
+  unset h1 {
     color: $main;
     font-size: 3em;
     padding: 0.5em 0;
@@ -79,10 +78,14 @@ body {
       }
 
       .delete-p {
-        position: absolute;
-        right: 0;
-        top: 0;
         @include close();
+        border-radius: 0.25em;
+        padding: 0.2em 0.6em;
+      }
+
+      .add-todo {
+        @include add-buttons();
+        margin: 0 0.5em;
       }
     }
 

@@ -6,7 +6,6 @@ const container = document.getElementById('content');
 const title = tag('h1', 'Todo List App', 'header', 'header');
 const projects = tag('section', '', 'projects', 'projects');
 const todos = tag('section', '', 'todos', 'todos');
-const newTodo = tag('button', '+ New Todo', 'new-todo', 'new-todo');
 const closeButton = tag('button', 'Close', 'close', 'close');
 const newProjectButton = tag('button', '+', 'create-p', 'create-p');
 
@@ -73,7 +72,6 @@ const Dom = (() => {
   const todoSection = (task) => {
     task.appendChild(tag('p', 'All Todos', 't-header', 't-header'));
     task.appendChild(tag('div', 'todos here', 't-list', 't-list'));
-    task.appendChild(newTodo);
     task.appendChild(todoForm());
     return task;
   };
@@ -108,7 +106,6 @@ const Dom = (() => {
     render,
     showForm,
     hideForm,
-    newTodo,
     closeButton,
     newProjectButton,
   };

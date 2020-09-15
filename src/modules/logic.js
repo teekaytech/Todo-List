@@ -25,6 +25,7 @@ const Logic = (() => {
       const key = localStorage.key(i);
       const prjt = Elements.tag('p', `> ${getProject(key).name}`, `${key}`, 'p');
 
+      prjt.innerHTML += `<button class="add-todo" id="${key}">+</button>`;
       prjt.innerHTML += `<button class="delete-p" id="${key}">x</button>`;
       allProjectsContainer.appendChild(prjt);
     }

@@ -9,7 +9,6 @@ const {
   render,
   showForm,
   hideForm,
-  newTodo,
   closeButton,
   newProjectButton,
 } = Dom;
@@ -17,9 +16,12 @@ const {
 render();
 createDefault.dProject();
 
-newTodo.addEventListener('click', () => {
-  const modal = document.getElementById('modal');
-  showForm(modal);
+const newTodo = document.querySelectorAll('.add-todo');
+newTodo.forEach((todoButton) => {
+  todoButton.addEventListener('click', () => {
+    const modal = document.getElementById('modal');
+    showForm(modal);
+  });
 });
 
 closeButton.addEventListener('click', (e) => {
@@ -51,5 +53,6 @@ currentProjects.forEach((project) => {
   project.addEventListener('click', () => {
     const thisProject = Logic.getProject(project.id);
     document.getElementById('t-header').innerText = thisProject.name;
+    document.getElementById('t-list').innerText = 'Hello world';
   });
 });
