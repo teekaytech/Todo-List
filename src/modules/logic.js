@@ -72,7 +72,7 @@ const Logic = (() => {
     const todoProject = getProject(catId);
     todoProject.todoList.push(todo);
     localStorage.setItem(catId, JSON.stringify(todoProject));
-    return true;
+    alert('Todo added successfully.');
   };
 
   const addTodo = (title, desc, date, priorities, catId) => {
@@ -90,14 +90,18 @@ const Logic = (() => {
     const todos = thisProject.todoList;
 
     todoContainer.innerHTML = '';
-    todoContainer.appendChild(Elements.tag('p', thisProject.name, 't-header', 't-header'));
+    todoContainer.appendChild(Elements.tag('p', `Current Project: ${thisProject.name}`, 't-header', 't-header'));
 
     todos.forEach((todo) => {
       const tr = Elements.tag('tr');
       tr.appendChild(Elements.tag('td', ''));
       tr.appendChild(Elements.tag('td', todo.title));
       tr.appendChild(Elements.tag('td', new Date(todo.dueDate).toUTCString()));
-      tr.appendChild(Elements.tag('td', 'delete'));
+
+      const td = Elements.tag('td');
+      td.innerHTML = ' &#128221;   &#128686; ';
+
+      tr.appendChild(td);
       table.appendChild(tr);
     });
 
