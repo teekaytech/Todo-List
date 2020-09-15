@@ -11,7 +11,7 @@ const Logic = (() => {
   const addProject = name => {
     if (validateProjectName(name)) {
       const nextprojectId = localStorage.length;
-      const project = JSON.stringify(new Project(nextprojectId, name));
+      const project = JSON.stringify(new Project(nextprojectId + 1, name));
       localStorage.setItem(nextprojectId, project);
       return true;
     }
@@ -48,9 +48,8 @@ const Logic = (() => {
 
     if (check === true) {
       localStorage.removeItem(id);
-      return true;
+      location.reload();
     }
-    return false;
   };
 
   const checkTodo = (title, desc, date) => title !== ''
@@ -86,13 +85,13 @@ const Logic = (() => {
     }
   };
 
-  const makeIcons = (id) => {
+  const makeIcons = (pId, tId) => {
     const td = Elements.tag('td', '', 'todo-action', 'todo0action');
     td.innerHTML = `
-      <span class="edit-todo-button" id="edit-todo-button" data-todo="${id}">
+      <span class="edit-todo-button" id="edit-todo-button" data-project="${pId}" data-todo="${tId}">
         &#128221;
       </span>
-      <span class="delete-todo-button" id="delete-todo-buttotdn" data-todo="${id}">
+      <span class="delete-todo-button" id="delete-todo-button" data-project="${pId}" data-todo="${tId}">
         &#128686;
       </span>
       `;
@@ -111,12 +110,26 @@ const Logic = (() => {
       tr.appendChild(Elements.tag('td', todo.id));
       tr.appendChild(Elements.tag('td', todo.title));
       tr.appendChild(Elements.tag('td', new Date(todo.dueDate).toUTCString()));
-      tr.appendChild(makeIcons(todo.id));
+      tr.appendChild(makeIcons(thisProject.id, todo.id));
       table.appendChild(tr);
     });
 
     todoContainer.appendChild(table);
     todoContainer.appendChild(form);
+  };
+
+  const updateStorage = (id, project) => {
+    localStorage.setItem(id, JSON.stringify(project));
+    return true;
+  };
+
+  const deleteTodo = (pId, tId) => {
+    const thisProject = getProject(pId - 1);
+    thisProject.todoList.splice((tId - 1), 1);
+    if (updateStorage(pId - 1, thisProject)) {
+      location.reload();
+      alert('Task successfully deleted!');
+    }
   };
 
   return {
@@ -126,6 +139,7 @@ const Logic = (() => {
     getProject,
     addTodo,
     displayTodos,
+    deleteTodo,
   };
 })();
 

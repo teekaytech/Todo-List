@@ -10,9 +10,8 @@
 - SASS
 - Bootstrap
 - JavaScript (ES6)
+- LocalStorage
 - Webpack
-- ESLint
-- Stlylelint
 
 ## Live Demo
 

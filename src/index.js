@@ -29,6 +29,15 @@ const addNewTodo = (projectId) => {
   });
 };
 
+const processDelete = () => {
+  const deleteTodoButton = document.querySelectorAll('.delete-todo-button');
+  deleteTodoButton.forEach((button) => {
+    button.addEventListener('click', () => {
+      Logic.deleteTodo(button.dataset.project, button.dataset.todo);
+    });
+  });
+};
+
 const newTodo = document.querySelectorAll('.add-todo');
 newTodo.forEach((todoButton) => {
   todoButton.addEventListener('click', () => {
@@ -58,7 +67,6 @@ const deleteProject = document.querySelectorAll('.delete-p');
 deleteProject.forEach(project => {
   project.addEventListener('click', () => {
     Logic.deleteProject(project.id);
-    location.reload();
   });
 });
 
@@ -67,15 +75,6 @@ currentProjects.forEach((project) => {
   project.addEventListener('click', () => {
     const todosContainer = document.getElementById('todos');
     Logic.displayTodos(project.id, todosContainer, todoTable(), todoForm());
+    processDelete();
   });
 });
-
-// const editTodoButton = document.querySelectorAll('.edit-todo-button');
-// console.log(editTodoButton);
-// editTodoButton.forEach((button) => {
-//   button.addEventListener('click', () => {
-//     // const todosContainer = document.getElementById('todos');
-//     console.log(button);
-//     // Logic.editTodo(project.id, todosContainer, todoTable(), todoForm());
-//   });
-// });
