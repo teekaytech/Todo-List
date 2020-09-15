@@ -98,8 +98,10 @@ const Logic = (() => {
       tr.appendChild(Elements.tag('td', todo.title));
       tr.appendChild(Elements.tag('td', new Date(todo.dueDate).toUTCString()));
 
-      const td = Elements.tag('td');
-      td.innerHTML = ' &#128221;   &#128686; ';
+      const td = Elements.tag('td', '', 'todo-action', 'todo0action');
+      td.innerHTML = `
+      <span class="edit-todo-button" id="edit-todo-button">&#128221;</span>
+      <span class="delete-todo-button" id="delete-todo-button">&#128686;</span>`;
 
       tr.appendChild(td);
       table.appendChild(tr);

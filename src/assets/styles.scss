@@ -125,7 +125,19 @@ body {
     th,
     td {
       border: 1px solid $main;
+      padding: 0.5em;
+      font-size: 1.2em;
     }
+
+    .edit-todo-button,
+    .delete-todo-button {
+      margin: 0 0.5em;
+      cursor: pointer;
+    }
+
+    // .edit-todo-button {
+    //   margin: 0 0.3em;
+    // }
 
     .t-header {
       @include mini-headers();
