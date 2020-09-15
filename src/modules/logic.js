@@ -66,9 +66,9 @@ const Logic = (() => {
   };
 
   const storeTodo = (catId, todo) => {
-    const todoProject = getProject(todo.catId);
+    const todoProject = getProject(catId);
     todoProject.todoList.push(todo);
-    console.log(todoProject);
+    localStorage.setItem(catId, JSON.stringify(todoProject));
     return true;
   };
 
@@ -82,26 +82,28 @@ const Logic = (() => {
     }
   };
 
-  // const allTodos = () => {
-  //   for (let i = 0; i < localStorage.length; i += 1) {
-  //     const key = localStorage.key(i);
-  //     if (typeof parseInt('0', 10) === 'number') {
-  //       const prjt = Elements.tag(
-  //         'p',
-  //         `> ${getProject(key).name}`,
-  //         `${key}`,
-  //         'p',
-  //       );
-  //       prjt.innerHTML += `<button class="add-todo" id="${key}">+</button>`;
-  //       prjt.innerHTML += `<button class="delete-p" id="${key}">x</button>`;
-  //       allProjectsContainer.appendChild(prjt);
-  //     }
-  //   }
-  //   return allProjectsContainer;
-  // };
+  const displayTodos = (id, title, table) => {
+    const thisProject = getProject(id);
+    const todos = thisProject.todoList;
+
+    title.innerHTML = thisProject.name;
+    todos.forEach(todo => {
+      const tr = Elements.tag('tr');
+      tr.appendChild(Elements.tag('td', ''));
+      tr.appendChild(Elements.tag('td', todo.title));
+      tr.appendChild(Elements.tag('td', new Date(todo.dueDate).toUTCString()));
+      tr.appendChild(Elements.tag('td', 'delete'));
+      table.appendChild(tr);
+    });
+  };
 
   return {
-    addProject, allProjects, deleteProject, getProject, addTodo,
+    addProject,
+    allProjects,
+    deleteProject,
+    getProject,
+    addTodo,
+    displayTodos,
   };
 })();
 

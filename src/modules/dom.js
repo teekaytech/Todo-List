@@ -69,9 +69,25 @@ const Dom = (() => {
     return wrapper;
   };
 
-  const todoSection = (task) => {
-    task.appendChild(tag('p', 'All Todos', 't-header', 't-header'));
-    task.appendChild(tag('div', 'todos here', 't-list', 't-list'));
+  const todoTable = () => {
+    const table = Elements.tag('table', '', 'todo-table', 'todo-table');
+    const tr = Elements.tag('tr');
+
+    tr.appendChild(Elements.tag('th', '#'));
+    tr.appendChild(Elements.tag('th', 'Title'));
+    tr.appendChild(Elements.tag('th', 'Due Date'));
+    tr.appendChild(Elements.tag('th', 'Action'));
+    table.appendChild(tr);
+
+    return table;
+  };
+
+  const todoSection = task => {
+    const todoContainer = tag('div', '', 't-list', 't-list');
+    todoContainer.appendChild(todoTable());
+
+    task.appendChild(tag('p', 'Click on a project to view tasks', 't-header', 't-header'));
+    task.appendChild(todoContainer);
     task.appendChild(todoForm());
     return task;
   };

@@ -116,6 +116,15 @@ body {
     width: 73%;
     margin: 2em;
 
+    .todo-table {
+      width: 100%;
+    }
+
+    th,
+    td {
+      border: 1px solid $main;
+    }
+
     .t-header {
       @include mini-headers();
     }

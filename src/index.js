@@ -18,13 +18,12 @@ render();
 
 const addNewTodo = (projectId) => {
   const addTodo = document.querySelector('.create-t');
-  addTodo.addEventListener('click', (e) => {
+  addTodo.addEventListener('click', () => {
     const title = document.getElementById('t-title').value;
     const desc = document.getElementById('t-desc').value;
     const dueDate = document.getElementById('t-date').value;
     const priority = document.querySelectorAll('.priority');
     Logic.addTodo(title, desc, dueDate, priority, projectId);
-    e.preventDefault();
   });
 };
 
@@ -64,8 +63,8 @@ deleteProject.forEach(project => {
 const currentProjects = document.querySelectorAll('.p');
 currentProjects.forEach((project) => {
   project.addEventListener('click', () => {
-    const thisProject = Logic.getProject(project.id);
-    document.getElementById('t-header').innerText = thisProject.name;
-    document.getElementById('t-list').innerText = 'Hello world';
+    const titleContainer = document.getElementById('t-header');
+    const todoTable = document.getElementById('todo-table');
+    Logic.displayTodos(project.id, titleContainer, todoTable);
   });
 });
