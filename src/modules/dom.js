@@ -83,11 +83,7 @@ const Dom = (() => {
   };
 
   const todoSection = task => {
-    const todoContainer = tag('div', '', 't-list', 't-list');
-    todoContainer.appendChild(todoTable());
-
     task.appendChild(tag('p', 'Click on a project to view tasks', 't-header', 't-header'));
-    task.appendChild(todoContainer);
     task.appendChild(todoForm());
     return task;
   };
@@ -120,10 +116,12 @@ const Dom = (() => {
     todos,
     todoSection,
     render,
+    todoForm,
     showForm,
     hideForm,
     closeButton,
     newProjectButton,
+    todoTable,
   };
 })();
 

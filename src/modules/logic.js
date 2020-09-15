@@ -21,17 +21,20 @@ const Logic = (() => {
   const getProject = (id) => JSON.parse(localStorage.getItem(id));
 
   const allProjects = () => {
-    const allProjectsContainer = Elements.tag('div', '', 'p-list', 'p-list');
+    const projectsSection = Elements.tag('div', '', 'p-list', 'p-list');
+
     for (let i = 0; i < localStorage.length; i += 1) {
       const key = localStorage.key(i);
       if ((typeof parseInt('key', 10)) === 'number') {
-        const prjt = Elements.tag('p', `> ${getProject(key).name}`, `${key}`, 'p');
-        prjt.innerHTML += `<button class="add-todo" id="${key}">+</button>`;
-        prjt.innerHTML += `<button class="delete-p" id="${key}">x</button>`;
-        allProjectsContainer.appendChild(prjt);
+        const project = Elements.tag('div');
+        project.appendChild(Elements.tag('p', `> ${getProject(key).name}`, `${key}`, 'p'));
+        project.appendChild(Elements.tag('button', '+', key, 'add-todo'));
+        project.appendChild(Elements.tag('button', 'x', key, 'delete-p'));
+
+        projectsSection.appendChild(project);
       }
     }
-    return allProjectsContainer;
+    return projectsSection;
   };
 
   const deleteProject = id => {
@@ -82,12 +85,14 @@ const Logic = (() => {
     }
   };
 
-  const displayTodos = (id, title, table) => {
+  const displayTodos = (id, todoContainer, table, form) => {
     const thisProject = getProject(id);
     const todos = thisProject.todoList;
 
-    title.innerHTML = thisProject.name;
-    todos.forEach(todo => {
+    todoContainer.innerHTML = '';
+    todoContainer.appendChild(Elements.tag('p', thisProject.name, 't-header', 't-header'));
+
+    todos.forEach((todo) => {
       const tr = Elements.tag('tr');
       tr.appendChild(Elements.tag('td', ''));
       tr.appendChild(Elements.tag('td', todo.title));
@@ -95,6 +100,9 @@ const Logic = (() => {
       tr.appendChild(Elements.tag('td', 'delete'));
       table.appendChild(tr);
     });
+
+    todoContainer.appendChild(table);
+    todoContainer.appendChild(form);
   };
 
   return {

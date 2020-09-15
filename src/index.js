@@ -6,6 +6,8 @@ import Logic from './modules/logic';
 import './assets/styles.scss';
 
 const {
+  todoTable,
+  todoForm,
   render,
   showForm,
   hideForm,
@@ -63,8 +65,7 @@ deleteProject.forEach(project => {
 const currentProjects = document.querySelectorAll('.p');
 currentProjects.forEach((project) => {
   project.addEventListener('click', () => {
-    const titleContainer = document.getElementById('t-header');
-    const todoTable = document.getElementById('todo-table');
-    Logic.displayTodos(project.id, titleContainer, todoTable);
+    const todosContainer = document.getElementById('todos');
+    Logic.displayTodos(project.id, todosContainer, todoTable(), todoForm());
   });
 });

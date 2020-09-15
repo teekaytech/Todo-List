@@ -67,8 +67,8 @@ body {
       padding: 1em;
 
       .p {
+        display: inline-block;
         padding: 0.5em 0;
-        position: relative;
         font-weight: bolder;
         font-size: 1.2em;
 
@@ -85,7 +85,9 @@ body {
 
       .add-todo {
         @include add-buttons();
+        font-size: large;
         margin: 0 0.5em;
+        padding: 0.1em 0.5em;
       }
     }
 
