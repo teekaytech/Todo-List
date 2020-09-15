@@ -98,6 +98,14 @@ const Logic = (() => {
     return td;
   };
 
+  const editTodoForm = (form, pId, tId) => {
+    const thisProject = getProject(pId - 1);
+    const cTodo = thisProject.todoList[tId - 1];
+    const editForm = form(cTodo.title, cTodo.desc, cTodo.dueDate);
+    return editForm;
+  };
+
+
   const displayTodos = (id, todoContainer, table, form) => {
     const thisProject = getProject(id);
     const todos = thisProject.todoList;
@@ -132,6 +140,20 @@ const Logic = (() => {
     }
   };
 
+  const editTodo = (container, form, pId, tId) => {
+    container.appendChild(editTodoForm(form, pId, tId));
+  };
+
+  // const updateTodo = (pId, tId) => {
+  //   const thisProject = getProject(pId - 1);
+  //   const currentTodo = thisProject.todoList[tId - 1];
+  //   // if (updateStorage(pId - 1, thisProject)) {
+  //   //   location.reload();
+  //   //   alert('Task successfully deleted!');
+  //   // }
+  //   console.log(currentTodo);
+  // };
+
   return {
     addProject,
     allProjects,
@@ -140,6 +162,7 @@ const Logic = (() => {
     addTodo,
     displayTodos,
     deleteTodo,
+    editTodo,
   };
 })();
 

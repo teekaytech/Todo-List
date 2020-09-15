@@ -48,22 +48,30 @@ const Dom = (() => {
     return pContainer;
   };
 
-  const todoForm = () => {
-    const wrapper = tag('div', '', 'modal', 'modal');
+  const formElements = (ttl = '', dsc = '', ddt = '') => {
     const form = tag('form', '', 'new-t', 'new-t');
-    const create = tag('button', 'Add Todo', 'create-t', 'create-t');
+    const create = tag('button', ttl === '' ? 'Add Todo' : 'Update', ttl === '' ? 'create-t' : 'update-t', 'create-t');
     const title = formTag('input', '', 't-title', 't-title', 'text', 'title here');
-    const desc = formTag('textarea', '', 't-desc', 't-desc', '', 'description');
+    const desc = formTag('textarea', dsc, 't-desc', 't-desc', '', 'description');
     const dueDate = formTag('input', '', 't-date', 't-date', 'datetime-local', '');
 
-    form.appendChild(tag('p', 'New Todo'));
+    title.setAttribute('value', ttl);
+    dueDate.setAttribute('value', ddt);
+
+    form.appendChild(tag('p', ttl === '' ? 'New Todo' : 'Edit Todo'));
     form.appendChild(title);
     form.appendChild(desc);
     form.appendChild(dueDate);
     form.appendChild(prioritySection());
     form.appendChild(create);
-    form.appendChild(closeButton);
+    return form;
+  };
 
+  const todoForm = () => {
+    const wrapper = tag('div', '', 'modal', 'modal');
+    const form = formElements();
+
+    form.appendChild(closeButton);
     wrapper.appendChild(form);
 
     return wrapper;
@@ -122,6 +130,7 @@ const Dom = (() => {
     closeButton,
     newProjectButton,
     todoTable,
+    formElements,
   };
 })();
 

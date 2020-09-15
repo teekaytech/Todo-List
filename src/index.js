@@ -13,6 +13,7 @@ const {
   hideForm,
   closeButton,
   newProjectButton,
+  formElements,
 } = Dom;
 
 createDefault.dProject();
@@ -34,6 +35,23 @@ const processDelete = () => {
   deleteTodoButton.forEach((button) => {
     button.addEventListener('click', () => {
       Logic.deleteTodo(button.dataset.project, button.dataset.todo);
+    });
+  });
+};
+
+const processEdit = () => {
+  const editTodoButton = document.querySelectorAll('.edit-todo-button');
+  editTodoButton.forEach((button) => {
+    button.addEventListener('click', () => {
+      const todosCont = document.getElementById('todos');
+      const pId = button.dataset.project;
+      const tId = button.dataset.todo;
+      Logic.editTodo(todosCont, formElements, pId, tId);
+
+      const updateBtn = document.getElementById('update-t');
+      updateBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+      });
     });
   });
 };
@@ -76,5 +94,6 @@ currentProjects.forEach((project) => {
     const todosContainer = document.getElementById('todos');
     Logic.displayTodos(project.id, todosContainer, todoTable(), todoForm());
     processDelete();
+    processEdit();
   });
 });
