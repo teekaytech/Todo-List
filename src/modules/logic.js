@@ -115,6 +115,17 @@ const Logic = (() => {
     };
   };
 
+  const setPriorityColor = (priority) => {
+    if (priority.innerText === 'High') {
+      priority.classList.add('high');
+    } else if (priority.innerText === 'Medium') {
+      priority.classList.add('medium');
+    } else {
+      priority.classList.add('low');
+    }
+    return priority;
+  };
+
   const displayTodos = (id, todoContainer, table, form) => {
     const thisProject = getProject(id);
     const todos = thisProject.todoList;
@@ -127,7 +138,7 @@ const Logic = (() => {
       tr.appendChild(Elements.tag('td', todo.id));
       tr.appendChild(Elements.tag('td', todo.title));
       tr.appendChild(Elements.tag('td', new Date(todo.dueDate).toUTCString()));
-      tr.appendChild(Elements.tag('td', todo.priority));
+      tr.appendChild(setPriorityColor(Elements.tag('td', todo.priority)));
       tr.appendChild(makeIcons(thisProject.id, todo.id));
       table.appendChild(tr);
     });

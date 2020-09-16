@@ -215,3 +215,21 @@ body {
     }
   }
 }
+
+.high,
+.medium,
+.low {
+  font-weight: bolder;
+}
+
+.high {
+  color: red;
+}
+
+.medium {
+  color: yellow;
+}
+
+.low {
+  color: green;
+}
