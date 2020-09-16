@@ -6,6 +6,7 @@ import Logic from './modules/logic';
 import './assets/styles.scss';
 
 const {
+  notice,
   todoTable,
   todoForm,
   render,
@@ -21,9 +22,12 @@ render();
 
 const addNewTodo = (projectId) => {
   const addTodo = document.querySelector('.create-t');
-  addTodo.addEventListener('click', () => {
+  addTodo.addEventListener('click', (e) => {
+    e.preventDefault();
     const f = Logic.getFormData();
-    Logic.addTodo(f.title, f.desc, f.dueDate, f.priority, projectId);
+    const modal = document.getElementById('modal');
+    hideForm(modal);
+    Logic.addTodo(notice, f.title, f.desc, f.dueDate, f.priority, projectId);
   });
 };
 
@@ -47,12 +51,9 @@ const processEdit = () => {
 
       const updateBtn = document.getElementById('update-t');
       updateBtn.addEventListener('click', (e) => {
-        const f = Logic.getFormData(tId);
-        if (Logic.updateTodo(f, pId, tId)) {
-          alert('Todo update successful.'); return;
-        }
         e.preventDefault();
-        alert('All fields are compulsory.');
+        const f = Logic.getFormData(tId);
+        Logic.updateTodo(notice, f, pId, tId);
       });
     });
   });
@@ -79,7 +80,7 @@ newProjectButton.addEventListener('click', () => {
     Logic.addProject(name);
     location.reload();
   } else {
-    alert('Project name cannot be blank');
+    Logic.setNotice(notice, 'Project name cannot be blank');
   }
 });
 

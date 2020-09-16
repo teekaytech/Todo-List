@@ -47,13 +47,8 @@ $close: red;
   padding: 0;
   border: 0;
   font-size: 100%;
-  font-family:
-    "Trebuchet MS",
-    "Lucida Sans Unicode",
-    "Lucida Grande",
-    "Lucida Sans",
-    Arial,
-    sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   vertical-align: baseline;
   box-sizing: border-box;
 }
@@ -68,6 +63,15 @@ body {
     text-align: center;
   }
 
+  .notice {
+    display: none;
+    margin: 0 auto;
+    color: $main;
+    text-align: center;
+    font-size: 1.3em;
+    background-color: $close;
+  }
+
   .sub-container {
     display: flex;
     padding: 1em;
@@ -76,7 +80,7 @@ body {
   .projects {
     color: $bg;
     width: 27%;
-    min-height: 80vh;
+    // min-height: 50vh;
     padding: 0.5em;
     background-color: $upper-main;
 
@@ -135,7 +139,7 @@ body {
   .todos {
     color: $main;
     width: 73%;
-    margin: 2em;
+    margin: 0 2em;
 
     .todo-table {
       width: 100%;
@@ -168,8 +172,7 @@ body {
       position: relative;
       background-color: $upper-main;
       color: $bg;
-      line-height: 2;
-      margin: 2em auto;
+      margin: 1em auto;
       padding: 1em 5em;
 
       p {

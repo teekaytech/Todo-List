@@ -4,6 +4,7 @@ import Logic from './logic';
 const { tag, formTag, radioTag } = Elements;
 const container = document.getElementById('content');
 const title = tag('h1', 'Todo List App', 'header', 'header');
+const notice = tag('p', 'notifications here', 'notice', 'notice');
 const projects = tag('section', '', 'projects', 'projects');
 const todos = tag('section', '', 'todos', 'todos');
 const closeButton = tag('button', 'Close', 'close', 'close');
@@ -114,6 +115,7 @@ const Dom = (() => {
     nextContainer.appendChild(todoSection(todos));
 
     container.appendChild(title);
+    container.appendChild(notice);
     container.appendChild(nextContainer);
   };
 
@@ -128,6 +130,7 @@ const Dom = (() => {
 
 
   return {
+    notice,
     todos,
     todoSection,
     render,

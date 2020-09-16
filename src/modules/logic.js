@@ -18,6 +18,25 @@ const Logic = (() => {
     return false;
   };
 
+  const reloadPage = (status) => {
+    if (status) {
+      setTimeout(() => {
+        location.reload();
+      }, 3000);
+    }
+  };
+
+  const setNotice = (notice, msg, bg = '', reload = false) => {
+    notice.innerText = msg;
+    if (bg !== '') { notice.style.background = bg; }
+    reloadPage(reload);
+    notice.style.display = 'block';
+    setTimeout(() => {
+      notice.innerText = '';
+      notice.style.display = 'none';
+    }, 3000);
+  };
+
   const getProject = (id) => JSON.parse(localStorage.getItem(id));
 
   const allProjects = () => {
@@ -73,15 +92,15 @@ const Logic = (() => {
     const newTodo = new Todo(newId, title, desc, date, priority);
     todoProject.todoList.push(newTodo);
     localStorage.setItem(catId, JSON.stringify(todoProject));
-    alert('Todo added successfully.');
   };
 
-  const addTodo = (title, desc, date, priorities, catId) => {
+  const addTodo = (notice, title, desc, date, priorities, catId) => {
     const priority = checkPriority(priorities);
     if (checkTodo(title, desc, date) && priority) {
       storeTodo(catId, title, desc, date, priority);
+      setNotice(notice, 'Todo added successfully.', 'green', true);
     } else {
-      alert('All fields are compulsory.');
+      setNotice(notice, 'All fields are compulsory.');
     }
   };
 
@@ -185,16 +204,16 @@ const Logic = (() => {
     updateStorage(pId, project);
   };
 
-  const updateTodo = (f, pId, tId) => {
+  const updateTodo = (notice, f, pId, tId) => {
     const thisProject = getProject(pId - 1);
     const currentTodo = thisProject.todoList[tId - 1];
     const priority = checkPriority(f.priority);
     if (checkTodo(f.title, f.desc, f.date) && priority) {
       f.priority = priority;
       processUpdate(pId - 1, thisProject, tId, currentTodo, f);
-      return true;
+      setNotice(notice, 'Todo update successful.', 'green', true); return;
     }
-    return false;
+    setNotice(notice, 'All fields are compulsory');
   };
 
   return {
@@ -208,6 +227,7 @@ const Logic = (() => {
     editTodo,
     updateTodo,
     getFormData,
+    setNotice,
   };
 })();
 
