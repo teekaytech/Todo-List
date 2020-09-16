@@ -1,6 +1,7 @@
 $bg: rgb(27, 14, 39);
 $main: #fff;
 $primary: rgb(0, 0, 255);
+$upper-main: rgb(184, 185, 187);
 $close: red;
 
 @mixin mini-headers {
@@ -27,6 +28,16 @@ $close: red;
   background-color: $close;
   color: $main;
   cursor: pointer;
+}
+
+@mixin forms {
+  display: block;
+  width: 100%;
+  color: $bg;
+  padding: 0.5em;
+  margin: 2em 0;
+  border-bottom: 0.15em solid $bg;
+  border-radius: 0.4em;
 }
 
 *,
@@ -61,7 +72,7 @@ body {
     width: 27%;
     min-height: 80vh;
     padding: 0.5em;
-    background-color: $main;
+    background-color: $upper-main;
 
     .p-list {
       padding: 1em;
@@ -135,10 +146,6 @@ body {
       cursor: pointer;
     }
 
-    // .edit-todo-button {
-    //   margin: 0 0.3em;
-    // }
-
     .t-header {
       @include mini-headers();
     }
@@ -180,13 +187,7 @@ body {
         .t-desc,
         .t-date,
         div {
-          display: block;
-          width: 100%;
-          color: $bg;
-          padding: 0.5em;
-          margin: 2em 0;
-          border-bottom: 0.15em solid $bg;
-          border-radius: 0.4em;
+          @include forms();
         }
 
         div {
@@ -213,6 +214,34 @@ body {
         }
       }
     }
+
+    .update-todo {
+      position: relative;
+      background-color: $upper-main;
+      color: $bg;
+      line-height: 2;
+      margin: 2em auto;
+      padding: 1em 5em;
+
+      p {
+        font-weight: bolder;
+        font-size: 1.2em;
+      }
+
+      .tu-title,
+      .tu-desc,
+      .tu-date {
+        @include forms();
+      }
+
+      .update-t {
+        position: absolute;
+        right: 5em;
+        bottom: 1em;
+        @include close();
+        background-color: $primary;
+      }
+    }
   }
 }
 
@@ -223,7 +252,7 @@ body {
 }
 
 .high {
-  color: red;
+  color: $close;
 }
 
 .medium {
