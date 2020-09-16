@@ -15,7 +15,7 @@
 
 ## Live Demo
 
-<a href="todo" target="_blank">Todo List Application</a>
+<a href="https://teekaytech.github.io/Todo-List/" target="_blank">Todo List Application</a>
 
 ## Getting Started
 
