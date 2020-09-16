@@ -152,20 +152,29 @@ const Logic = (() => {
   };
 
   const editTodo = (container, form, pId, tId) => {
-    const p = document.createElement('input');
-    p.type = 'radio'; p.name = 'u-priority';
-    container.appendChild(p);
     container.appendChild(editTodoForm(form, pId, tId));
+  };
+
+  const processUpdate = (pId, project, tId, todo, f) => {
+    todo.title = f.title;
+    todo.desc = f.desc;
+    todo.dueDate = f.dueDate;
+    todo.priority = f.priority;
+
+    project.todoList[tId - 1] = todo;
+    updateStorage(pId, project);
   };
 
   const updateTodo = (f, pId, tId) => {
     const thisProject = getProject(pId - 1);
     const currentTodo = thisProject.todoList[tId - 1];
-    // if (updateStorage(pId - 1, thisProject)) {
-    //   location.reload();
-    //   alert('Task successfully deleted!');
-    // }
-    console.log(currentTodo, f);
+    const priority = checkPriority(f.priority);
+    if (checkTodo(f.title, f.desc, f.date) && priority) {
+      f.priority = priority;
+      processUpdate(pId - 1, thisProject, tId, currentTodo, f);
+      return true;
+    }
+    return false;
   };
 
   return {

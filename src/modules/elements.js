@@ -14,9 +14,11 @@ const Elements = (() => {
     return formElement;
   };
 
-  const radioTag = (name, text = '', id = '', classname = '', type = '', rname = '', value = '') => {
-    const radioElement = tag(name, text, id, classname);
-    radioElement.setAttribute('type', type);
+  const radioTag = (id = '', rname = '', classname = '', value = '') => {
+    const radioElement = document.createElement('input');
+    radioElement.setAttribute('type', 'radio');
+    radioElement.setAttribute('id', id);
+    radioElement.setAttribute('class', classname);
     radioElement.setAttribute('name', rname);
     radioElement.setAttribute('value', value);
     return radioElement;

@@ -47,9 +47,12 @@ const processEdit = () => {
 
       const updateBtn = document.getElementById('update-t');
       updateBtn.addEventListener('click', (e) => {
-        e.preventDefault();
         const f = Logic.getFormData(tId);
-        Logic.updateTodo(f, pId, tId);
+        if (Logic.updateTodo(f, pId, tId)) {
+          alert('Todo update successful.'); return;
+        }
+        e.preventDefault();
+        alert('All fields are compulsory.');
       });
     });
   });

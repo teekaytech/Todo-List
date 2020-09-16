@@ -29,20 +29,14 @@ const Dom = (() => {
 
   const prioritySection = (ttl) => {
     const labels = ['Low', 'Medium', 'High'];
-    const pContainer = tag('div', 'Priority: ');
+    const pContainer = tag(ttl === '' ? 'div' : 'section', 'Priority: ');
     for (let i = 0; i < labels.length; i += 1) {
       const label = tag('label', labels[i]);
-      label.setAttribute('for', ttl === '' ? labels[i] : `u-${labels[i]}`);
+      label.setAttribute('for', labels[i]);
       const radio = radioTag(
-        'input',
-        '',
         labels[i],
-        // ttl === '' ? labels[i] : `u-${labels[i]}`,
-        // ttl === '' ? 'priority' : 'u-priority',
-        'priority',
-        'radio',
-        'priority',
-        // ttl === '' ? 'priority' : 'u-priority',
+        ttl === '' ? 'priority' : 'u-priority',
+        ttl === '' ? 'priority' : 'u-priority',
         labels[i],
       );
       pContainer.appendChild(radio);
@@ -61,7 +55,7 @@ const Dom = (() => {
       dueDate = formTag('input', '', 't-date', 't-date', 'datetime-local', '');
       form.appendChild(tag('p', 'New Todo'));
     } else {
-      form = tag('form', '', 'update-t', 'update-t');
+      form = tag('form', '', 'update-todo', 'update-todo');
       create = tag('button', 'Update Todo', 'update-t', 'update-t');
       title = formTag('input', '', 'tu-title', 'tu-title', 'text', 'title here');
       desc = formTag('textarea', dsc, 'tu-desc', 'tu-desc', '', 'description');
