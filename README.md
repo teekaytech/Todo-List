@@ -1,6 +1,6 @@
 # Todo List App
 
-> This is a project aimed at implementing lessons learned on JavaScript ojects, factory functions, ES6 module pattern and webpack. The project provides a simple Todo List application by dividing Todos into categories. Users can create, rename and delete categories. For each of the categories, users can add zero or more Todos. Todos can also be created, updated or deleted.
+> This is a project aimed at implementing lessons learned on JavaScript ojects, factory functions, ES6 module pattern and webpack. The project provides a simple Todo List application by dividing Todos into categories (projects). Users can create, rename and delete categories. For each of the categories, users can add zero or more Todos. Todos can also be created, updated or deleted.
 
 ![screenshot](src/assets/images/screenshot.png)
 
