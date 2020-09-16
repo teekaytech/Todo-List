@@ -127,6 +127,7 @@ const Logic = (() => {
       tr.appendChild(Elements.tag('td', todo.id));
       tr.appendChild(Elements.tag('td', todo.title));
       tr.appendChild(Elements.tag('td', new Date(todo.dueDate).toUTCString()));
+      tr.appendChild(Elements.tag('td', todo.priority));
       tr.appendChild(makeIcons(thisProject.id, todo.id));
       table.appendChild(tr);
     });
@@ -138,6 +139,13 @@ const Logic = (() => {
   const updateStorage = (id, project) => {
     localStorage.setItem(id, JSON.stringify(project));
     return true;
+  };
+
+  const checkLastChild = (container) => {
+    const lastItem = container.lastChild;
+    if (lastItem.className === 'update-todo') {
+      container.removeChild(lastItem);
+    }
   };
 
   const deleteTodo = (pId, tId) => {
@@ -152,6 +160,7 @@ const Logic = (() => {
   };
 
   const editTodo = (container, form, pId, tId) => {
+    checkLastChild(container);
     container.appendChild(editTodoForm(form, pId, tId));
   };
 

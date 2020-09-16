@@ -90,6 +90,7 @@ const Dom = (() => {
     tr.appendChild(Elements.tag('th', '#'));
     tr.appendChild(Elements.tag('th', 'Title'));
     tr.appendChild(Elements.tag('th', 'Due Date'));
+    tr.appendChild(Elements.tag('th', 'Priority'));
     tr.appendChild(Elements.tag('th', 'Action'));
     table.appendChild(tr);
 
