@@ -27,19 +27,22 @@ const Dom = (() => {
     return wrapper;
   };
 
-  const prioritySection = () => {
-    const labels = [' Low ', ' Medium ', ' High '];
+  const prioritySection = (ttl) => {
+    const labels = ['Low', 'Medium', 'High'];
     const pContainer = tag('div', 'Priority: ');
     for (let i = 0; i < labels.length; i += 1) {
       const label = tag('label', labels[i]);
-      label.setAttribute('for', labels[i]);
+      label.setAttribute('for', ttl === '' ? labels[i] : `u-${labels[i]}`);
       const radio = radioTag(
         'input',
         '',
         labels[i],
+        // ttl === '' ? labels[i] : `u-${labels[i]}`,
+        // ttl === '' ? 'priority' : 'u-priority',
         'priority',
         'radio',
         'priority',
+        // ttl === '' ? 'priority' : 'u-priority',
         labels[i],
       );
       pContainer.appendChild(radio);
@@ -49,20 +52,29 @@ const Dom = (() => {
   };
 
   const formElements = (ttl = '', dsc = '', ddt = '') => {
-    const form = tag('form', '', 'new-t', 'new-t');
-    const create = tag('button', ttl === '' ? 'Add Todo' : 'Update', ttl === '' ? 'create-t' : 'update-t', 'create-t');
-    const title = formTag('input', '', 't-title', 't-title', 'text', 'title here');
-    const desc = formTag('textarea', dsc, 't-desc', 't-desc', '', 'description');
-    const dueDate = formTag('input', '', 't-date', 't-date', 'datetime-local', '');
+    let form; let create; let title; let desc; let dueDate;
+    if (ttl === '') {
+      form = tag('form', '', 'new-t', 'new-t');
+      create = tag('button', 'Add Todo', 'create-t', 'create-t');
+      title = formTag('input', '', 't-title', 't-title', 'text', 'title here');
+      desc = formTag('textarea', '', 't-desc', 't-desc', '', 'description');
+      dueDate = formTag('input', '', 't-date', 't-date', 'datetime-local', '');
+      form.appendChild(tag('p', 'New Todo'));
+    } else {
+      form = tag('form', '', 'update-t', 'update-t');
+      create = tag('button', 'Update Todo', 'update-t', 'update-t');
+      title = formTag('input', '', 'tu-title', 'tu-title', 'text', 'title here');
+      desc = formTag('textarea', dsc, 'tu-desc', 'tu-desc', '', 'description');
+      dueDate = formTag('input', '', 'tu-date', 'tu-date', 'datetime-local', '');
+      title.setAttribute('value', ttl);
+      dueDate.setAttribute('value', ddt);
+      form.appendChild(tag('p', 'Edit Todo'));
+    }
 
-    title.setAttribute('value', ttl);
-    dueDate.setAttribute('value', ddt);
-
-    form.appendChild(tag('p', ttl === '' ? 'New Todo' : 'Edit Todo'));
     form.appendChild(title);
     form.appendChild(desc);
     form.appendChild(dueDate);
-    form.appendChild(prioritySection());
+    form.appendChild(prioritySection(ttl));
     form.appendChild(create);
     return form;
   };

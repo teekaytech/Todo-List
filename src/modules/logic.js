@@ -105,6 +105,15 @@ const Logic = (() => {
     return editForm;
   };
 
+  const getFormData = (tId = '') => {
+    const title = document.getElementById(tId === '' ? 't-title' : 'tu-title').value;
+    const desc = document.getElementById(tId === '' ? 't-desc' : 'tu-desc').value;
+    const dueDate = document.getElementById(tId === '' ? 't-date' : 'tu-date').value;
+    const priority = document.querySelectorAll(tId === '' ? '.priority' : '.u-priority');
+    return {
+      title, desc, dueDate, priority,
+    };
+  };
 
   const displayTodos = (id, todoContainer, table, form) => {
     const thisProject = getProject(id);
@@ -132,27 +141,32 @@ const Logic = (() => {
   };
 
   const deleteTodo = (pId, tId) => {
-    const thisProject = getProject(pId - 1);
-    thisProject.todoList.splice((tId - 1), 1);
-    if (updateStorage(pId - 1, thisProject)) {
-      location.reload();
-      alert('Task successfully deleted!');
+    const check = confirm('Are you sure you want to delete this task?');
+    if (check) {
+      const thisProject = getProject(pId - 1);
+      thisProject.todoList.splice((tId - 1), 1);
+      if (updateStorage(pId - 1, thisProject)) {
+        location.reload();
+      }
     }
   };
 
   const editTodo = (container, form, pId, tId) => {
+    const p = document.createElement('input');
+    p.type = 'radio'; p.name = 'u-priority';
+    container.appendChild(p);
     container.appendChild(editTodoForm(form, pId, tId));
   };
 
-  // const updateTodo = (pId, tId) => {
-  //   const thisProject = getProject(pId - 1);
-  //   const currentTodo = thisProject.todoList[tId - 1];
-  //   // if (updateStorage(pId - 1, thisProject)) {
-  //   //   location.reload();
-  //   //   alert('Task successfully deleted!');
-  //   // }
-  //   console.log(currentTodo);
-  // };
+  const updateTodo = (f, pId, tId) => {
+    const thisProject = getProject(pId - 1);
+    const currentTodo = thisProject.todoList[tId - 1];
+    // if (updateStorage(pId - 1, thisProject)) {
+    //   location.reload();
+    //   alert('Task successfully deleted!');
+    // }
+    console.log(currentTodo, f);
+  };
 
   return {
     addProject,
@@ -163,6 +177,8 @@ const Logic = (() => {
     displayTodos,
     deleteTodo,
     editTodo,
+    updateTodo,
+    getFormData,
   };
 })();
 

@@ -22,11 +22,8 @@ render();
 const addNewTodo = (projectId) => {
   const addTodo = document.querySelector('.create-t');
   addTodo.addEventListener('click', () => {
-    const title = document.getElementById('t-title').value;
-    const desc = document.getElementById('t-desc').value;
-    const dueDate = document.getElementById('t-date').value;
-    const priority = document.querySelectorAll('.priority');
-    Logic.addTodo(title, desc, dueDate, priority, projectId);
+    const f = Logic.getFormData();
+    Logic.addTodo(f.title, f.desc, f.dueDate, f.priority, projectId);
   });
 };
 
@@ -51,6 +48,8 @@ const processEdit = () => {
       const updateBtn = document.getElementById('update-t');
       updateBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        const f = Logic.getFormData(tId);
+        Logic.updateTodo(f, pId, tId);
       });
     });
   });
