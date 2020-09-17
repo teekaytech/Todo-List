@@ -7,12 +7,13 @@ import Elements from './elements';
 
 const Logic = (() => {
   const validateProjectName = name => (name !== '');
+  const getAllProjects = () => JSON.parse(localStorage.getItem('todoapp'));
 
   const addProject = name => {
     if (validateProjectName(name)) {
-      const nextprojectId = localStorage.length;
-      const project = JSON.stringify(new Project(nextprojectId + 1, name));
-      localStorage.setItem(nextprojectId, project);
+      const allProjects = getAllProjects();
+      allProjects.push(new Project(allProjects.length + 1, name));
+      localStorage.setItem('todoapp', JSON.stringify(allProjects));
       return true;
     }
     return false;
@@ -37,36 +38,25 @@ const Logic = (() => {
     }, 3000);
   };
 
-  const getProject = (id) => JSON.parse(localStorage.getItem(id));
-
   const allProjects = () => {
     const projectsSection = Elements.tag('div', '', 'p-list', 'p-list');
-
-    for (let i = 0; i < localStorage.length; i += 1) {
-      const key = localStorage.key(i);
-      if ((typeof parseInt('key', 10)) === 'number') {
-        const project = Elements.tag('div');
-        project.appendChild(Elements.tag('p', `> ${getProject(key).name}`, `${key}`, 'p'));
-        project.appendChild(Elements.tag('button', '+', key, 'add-todo'));
-        project.appendChild(Elements.tag('button', 'x', key, 'delete-p'));
-
-        projectsSection.appendChild(project);
-      }
+    const myProjects = getAllProjects();
+    for (let i = 0; i < myProjects.length; i += 1) {
+      const project = Elements.tag('div');
+      project.appendChild(Elements.tag('p', `> ${myProjects[i].name}`, i, 'p'));
+      project.appendChild(Elements.tag('button', '+', i, 'add-todo'));
+      if (i !== 0) { project.appendChild(Elements.tag('button', 'x', i, 'delete-p')); }
+      projectsSection.appendChild(project);
     }
     return projectsSection;
   };
 
-  const deleteProject = id => {
-    let check;
-
-    if (id === '0') {
-      check = confirm('This is the default Project. Are you sure you want to delete?');
-    } else {
-      check = confirm('This project and its tasks (todo) will be deleted. Are you sure?');
-    }
-
+  const deleteProject = (id) => {
+    const check = confirm('This project and its tasks (todo) will be deleted. Are you sure?');
     if (check === true) {
-      localStorage.removeItem(id);
+      const allProjects = getAllProjects();
+      allProjects.splice(id, 1);
+      localStorage.setItem('todoapp', JSON.stringify(allProjects));
       location.reload();
     }
   };
@@ -87,21 +77,20 @@ const Logic = (() => {
   };
 
   const storeTodo = (catId, title, desc, date, priority) => {
-    const todoProject = getProject(catId);
-    const newId = todoProject.todoList.length + 1;
-    const newTodo = new Todo(newId, title, desc, date, priority);
-    todoProject.todoList.push(newTodo);
-    localStorage.setItem(catId, JSON.stringify(todoProject));
+    const allProjects = getAllProjects();
+    const thisProjectTodo = allProjects[catId].todoList;
+    const newTodo = new Todo(thisProjectTodo.length + 1, title, desc, date, priority);
+    thisProjectTodo.push(newTodo);
+    localStorage.setItem('todoapp', JSON.stringify(allProjects));
   };
 
   const addTodo = (notice, title, desc, date, priorities, catId) => {
     const priority = checkPriority(priorities);
     if (checkTodo(title, desc, date) && priority) {
       storeTodo(catId, title, desc, date, priority);
-      setNotice(notice, 'Todo added successfully.', 'green', true);
-    } else {
-      setNotice(notice, 'All fields are compulsory.');
+      setNotice(notice, 'Todo added successfully.', 'green', true); return;
     }
+    setNotice(notice, 'All fields are compulsory.');
   };
 
   const makeIcons = (pId, tId) => {
@@ -118,9 +107,8 @@ const Logic = (() => {
   };
 
   const editTodoForm = (form, pId, tId) => {
-    const thisProject = getProject(pId - 1);
-    const cTodo = thisProject.todoList[tId - 1];
-    const editForm = form(cTodo.title, cTodo.desc, cTodo.dueDate);
+    const todo = getAllProjects()[pId - 1].todoList[tId - 1];
+    const editForm = form(todo.title, todo.desc, todo.dueDate);
     return editForm;
   };
 
@@ -145,12 +133,13 @@ const Logic = (() => {
     return priority;
   };
 
-  const displayTodos = (id, todoContainer, table, form) => {
-    const thisProject = getProject(id);
+  const displayTodos = (pId, todoContainer, table, form) => {
+    const thisProject = getAllProjects()[pId];
     const todos = thisProject.todoList;
 
     todoContainer.innerHTML = '';
-    todoContainer.appendChild(Elements.tag('p', `Current Project: ${thisProject.name}`, 't-header', 't-header'));
+    const hd = Elements.tag('p', `Current Project: ${thisProject.name}`, 't-header', 't-header');
+    todoContainer.appendChild(hd);
 
     todos.forEach((todo) => {
       const tr = Elements.tag('tr');
@@ -166,8 +155,8 @@ const Logic = (() => {
     todoContainer.appendChild(form);
   };
 
-  const updateStorage = (id, project) => {
-    localStorage.setItem(id, JSON.stringify(project));
+  const updateStorage = (project) => {
+    localStorage.setItem('todoapp', JSON.stringify(project));
     return true;
   };
 
@@ -179,11 +168,10 @@ const Logic = (() => {
   };
 
   const deleteTodo = (pId, tId) => {
-    const check = confirm('Are you sure you want to delete this task?');
-    if (check) {
-      const thisProject = getProject(pId - 1);
-      thisProject.todoList.splice((tId - 1), 1);
-      if (updateStorage(pId - 1, thisProject)) {
+    if (confirm('Are you sure you want to delete this task?')) {
+      const allProjects = getAllProjects();
+      allProjects[pId - 1].todoList.splice(tId - 1, 1);
+      if (updateStorage(allProjects)) {
         location.reload();
       }
     }
@@ -194,23 +182,24 @@ const Logic = (() => {
     container.appendChild(editTodoForm(form, pId, tId));
   };
 
-  const processUpdate = (pId, project, tId, todo, f) => {
+  const processUpdate = (pId, tId, todo, f) => {
     todo.title = f.title;
     todo.desc = f.desc;
     todo.dueDate = f.dueDate;
     todo.priority = f.priority;
 
-    project.todoList[tId - 1] = todo;
-    updateStorage(pId, project);
+    const allProjects = getAllProjects();
+    allProjects[pId].todoList[tId] = todo;
+    updateStorage(allProjects);
   };
 
   const updateTodo = (notice, f, pId, tId) => {
-    const thisProject = getProject(pId - 1);
+    const thisProject = getAllProjects()[pId - 1];
     const currentTodo = thisProject.todoList[tId - 1];
     const priority = checkPriority(f.priority);
     if (checkTodo(f.title, f.desc, f.date) && priority) {
       f.priority = priority;
-      processUpdate(pId - 1, thisProject, tId, currentTodo, f);
+      processUpdate(pId - 1, tId - 1, currentTodo, f);
       setNotice(notice, 'Todo update successful.', 'green', true); return;
     }
     setNotice(notice, 'All fields are compulsory');
@@ -220,7 +209,7 @@ const Logic = (() => {
     addProject,
     allProjects,
     deleteProject,
-    getProject,
+    getAllProjects,
     addTodo,
     displayTodos,
     deleteTodo,
