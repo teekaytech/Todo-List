@@ -1,4 +1,5 @@
 import Elements from './elements';
+import createDefault from './default';
 import Logic from './logic';
 
 const { tag, formTag, radioTag } = Elements;
@@ -105,6 +106,7 @@ const Dom = (() => {
   };
 
   const render = () => {
+    createDefault.dProject();
     const nextContainer = tag('div', '', 'sub-container', 'sub-container');
 
     projects.appendChild(tag('p', 'All Projects', 'p-header', 'p-header'));

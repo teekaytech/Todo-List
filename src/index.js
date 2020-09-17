@@ -1,7 +1,6 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-restricted-globals */
 import Dom from './modules/dom';
-import createDefault from './modules/default';
 import Logic from './modules/logic';
 import './assets/styles.scss';
 
@@ -17,7 +16,7 @@ const {
   formElements,
 } = Dom;
 
-if (createDefault.dProject()) { render(); }
+render();
 
 const addNewTodo = (projectId) => {
   const addTodo = document.querySelector('.create-t');
