@@ -11,9 +11,9 @@ const Logic = (() => {
 
   const addProject = name => {
     if (validateProjectName(name)) {
-      const allProjects = getAllProjects();
-      allProjects.push(new Project(allProjects.length + 1, name));
-      localStorage.setItem('todoapp', JSON.stringify(allProjects));
+      const all = getAllProjects();
+      all.push(new Project(all.length + 1, name));
+      localStorage.setItem('todoapp', JSON.stringify(all));
       return true;
     }
     return false;
@@ -54,9 +54,9 @@ const Logic = (() => {
   const deleteProject = (id) => {
     const check = confirm('This project and its tasks (todo) will be deleted. Are you sure?');
     if (check === true) {
-      const allProjects = getAllProjects();
-      allProjects.splice(id, 1);
-      localStorage.setItem('todoapp', JSON.stringify(allProjects));
+      const allP = getAllProjects();
+      allP.splice(id, 1);
+      localStorage.setItem('todoapp', JSON.stringify(allP));
       location.reload();
     }
   };
@@ -77,11 +77,11 @@ const Logic = (() => {
   };
 
   const storeTodo = (catId, title, desc, date, priority) => {
-    const allProjects = getAllProjects();
-    const thisProjectTodo = allProjects[catId].todoList;
+    const getAll = getAllProjects();
+    const thisProjectTodo = getAll[catId].todoList;
     const newTodo = new Todo(thisProjectTodo.length + 1, title, desc, date, priority);
     thisProjectTodo.push(newTodo);
-    localStorage.setItem('todoapp', JSON.stringify(allProjects));
+    localStorage.setItem('todoapp', JSON.stringify(getAll));
   };
 
   const addTodo = (notice, title, desc, date, priorities, catId) => {
@@ -169,9 +169,9 @@ const Logic = (() => {
 
   const deleteTodo = (pId, tId) => {
     if (confirm('Are you sure you want to delete this task?')) {
-      const allProjects = getAllProjects();
-      allProjects[pId - 1].todoList.splice(tId - 1, 1);
-      if (updateStorage(allProjects)) {
+      const findAll = getAllProjects();
+      findAll[pId - 1].todoList.splice(tId - 1, 1);
+      if (updateStorage(findAll)) {
         location.reload();
       }
     }
@@ -188,9 +188,9 @@ const Logic = (() => {
     todo.dueDate = f.dueDate;
     todo.priority = f.priority;
 
-    const allProjects = getAllProjects();
-    allProjects[pId].todoList[tId] = todo;
-    updateStorage(allProjects);
+    const prjts = getAllProjects();
+    prjts[pId].todoList[tId] = todo;
+    updateStorage(prjts);
   };
 
   const updateTodo = (notice, f, pId, tId) => {
