@@ -15,7 +15,7 @@
 
 ## Live Demo
 
-<a href="https://rawcdn.githack.com/teekaytech/Todo-List/1d27f142e7db14d11469b91c3dc31233d3c64181/index.html" target="_blank">Todo List Application</a>
+<a href="https://teekaytech.github.io/Todo-List" target="_blank">Todo List Application</a>
 
 ## Getting Started
 
