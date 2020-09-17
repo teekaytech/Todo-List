@@ -17,8 +17,7 @@ const {
   formElements,
 } = Dom;
 
-createDefault.dProject();
-render();
+if (createDefault.dProject()) { render(); }
 
 const addNewTodo = (projectId) => {
   const addTodo = document.querySelector('.create-t');

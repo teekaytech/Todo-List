@@ -12,6 +12,7 @@ const createDefault = (() => {
       project[0].todoList.push(t2);
       localStorage.setItem('todoapp', JSON.stringify(project));
     }
+    return true;
   };
 
   return { dProject };
