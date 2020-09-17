@@ -1,0 +1,36 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "> This is a project aimed at implementing lessons learned on JavaScript ojects, factory functions, ES6 module pattern and webpack. The project provides a simple Todo List application by dividing Todos into categories. Users can create, rename and delete categories. For each of the categories, users can add zero or more Todos. Todos can also be created, updated or deleted.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teekaytech/Todo-List.git"
+  },
+  "keywords": [
+    "todo",
+    "javascript"
+  ],
+  "author": "Taofeek Olalere",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/teekaytech/Todo-List/issues"
+  },
+  "homepage": "https://github.com/teekaytech/Todo-List#readme",
+  "devDependencies": {
+    "css-loader": "^4.3.0",
+    "sass": "^1.26.10",
+    "sass-loader": "^10.0.2",
+    "style-loader": "^1.2.1",
+    "ts-loader": "^8.0.3",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {}
+}

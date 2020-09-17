@@ -1,0 +1,285 @@
+$bg: rgb(27, 14, 39);
+$main: #fff;
+$primary: rgb(0, 0, 255);
+$upper-main: rgb(184, 185, 187);
+$close: red;
+
+@mixin mini-headers {
+  font-weight: bolder;
+  font-size: x-large;
+  padding-bottom: 0.5em;
+}
+
+@mixin add-buttons {
+  color: $main;
+  font-weight: bolder;
+  font-size: x-large;
+  background-color: $primary;
+  padding: 0.05em 0.4em;
+  border-radius: 0.25em;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@mixin close {
+  padding: 0.4em 0.8em;
+  background-color: $close;
+  color: $main;
+  cursor: pointer;
+}
+
+@mixin forms {
+  display: block;
+  width: 100%;
+  color: $bg;
+  padding: 0.5em;
+  margin: 2em 0;
+  border-bottom: 0.15em solid $bg;
+  border-radius: 0.4em;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family:
+    "Trebuchet MS",
+    "Lucida Sans Unicode",
+    "Lucida Grande",
+    "Lucida Sans",
+    Arial,
+    sans-serif;
+  vertical-align: baseline;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $bg;
+
+  h1 {
+    color: $main;
+    font-size: 3em;
+    padding: 0.5em 0;
+    text-align: center;
+  }
+
+  .notice {
+    display: none;
+    margin: 0 auto;
+    color: $main;
+    text-align: center;
+    font-size: 1.3em;
+    background-color: $close;
+  }
+
+  .sub-container {
+    display: flex;
+    padding: 1em;
+  }
+
+  .projects {
+    color: $bg;
+    width: 27%;
+    // min-height: 50vh;
+    padding: 0.5em;
+    background-color: $upper-main;
+
+    .p-list {
+      padding: 1em;
+
+      .p {
+        display: inline-block;
+        padding: 0.5em 0;
+        font-weight: bolder;
+        font-size: 1.2em;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .delete-p {
+        @include close();
+
+        border-radius: 0.25em;
+        padding: 0.2em 0.6em;
+      }
+
+      .add-todo {
+        @include add-buttons();
+
+        font-size: large;
+        margin: 0 0.5em;
+        padding: 0.1em 0.5em;
+      }
+    }
+
+    .p-header {
+      @include mini-headers();
+    }
+
+    .new-p {
+      display: flex;
+      justify-content: center;
+      padding: 0.7em;
+      background-color: $bg;
+      border-radius: 0.4em;
+
+      input[type="text"] {
+        padding: 0.4em 0.3em;
+        margin-right: 1em;
+      }
+
+      .create-p {
+        @include add-buttons();
+      }
+    }
+  }
+
+  .todos {
+    color: $main;
+    width: 73%;
+    margin: 0 2em;
+
+    .todo-table {
+      width: 100%;
+    }
+
+    th,
+    td {
+      border: 1px solid $main;
+      padding: 0.5em;
+      font-size: 1.2em;
+    }
+
+    .edit-todo-button,
+    .delete-todo-button {
+      margin: 0 0.5em;
+      cursor: pointer;
+    }
+
+    .t-header {
+      @include mini-headers();
+    }
+
+    .new-todo {
+      @include add-buttons();
+
+      margin-top: 1em;
+    }
+
+    .update-todo {
+      position: relative;
+      background-color: $upper-main;
+      color: $bg;
+      margin: 1em auto;
+      padding: 1em 5em;
+
+      p {
+        font-weight: bolder;
+        font-size: 1.2em;
+      }
+
+      .tu-title,
+      .tu-desc,
+      .tu-date {
+        @include forms();
+      }
+
+      .update-t {
+        position: absolute;
+        right: 5em;
+        bottom: 1em;
+
+        @include close();
+
+        background-color: $primary;
+      }
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(197, 196, 196, 0.5);
+
+      .new-t {
+        width: 50%;
+        background-color: $main;
+        color: $bg;
+        padding: 1.5em;
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        p {
+          color: $main;
+          background-color: $bg;
+          font-weight: bolder;
+          font-size: large;
+          margin-bottom: 2em;
+          padding: 0.4em 0.8em;
+        }
+
+        .t-title,
+        .t-desc,
+        .t-date,
+        div {
+          @include forms();
+        }
+
+        div {
+          border-bottom: unset;
+        }
+
+        .t-title {
+          margin: 1em 0;
+        }
+
+        .create-t {
+          @include add-buttons();
+
+          font-weight: unset;
+          font-size: unset;
+          padding: 0.4em 0.8em;
+          border-radius: unset;
+        }
+
+        .close {
+          position: absolute;
+          right: 1.5em;
+          bottom: 1.5em;
+
+          @include close();
+        }
+      }
+    }
+  }
+}
+
+.high,
+.medium,
+.low {
+  font-weight: bolder;
+}
+
+.high {
+  color: $close;
+}
+
+.medium {
+  color: yellow;
+}
+
+.low {
+  color: green;
+}
